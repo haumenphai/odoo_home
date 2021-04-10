@@ -79,7 +79,7 @@ class person_test(models.Model):
         
     img_test = fields.Image()
     
-      def view_init(self, fields_list):
+    def view_init(self, fields_list):
         """ Override this method to do specific things when a form view is
         opened. This method is invoked by :meth:`~default_get`.
         """
@@ -140,13 +140,19 @@ class person_test(models.Model):
         # print('s: ', s)
         
         self.write({'gioi_tinh': 'Nu_'})
+        print(self.env['school.2'])
         
+        print(self._context)
+        r2 = self.with_context({}, uid=6)
+        print('r2:', r2._context)
+        r2.env['school.giaovien']
     
   
 
         
 class test_name_valid(models.Model):
     _name='school.2'
+    a = 'a ====================132323123213'
         
 class test_xx(models.Model):
     _inherit = 'school.persontest'
