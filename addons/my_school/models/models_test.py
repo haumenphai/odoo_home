@@ -63,7 +63,9 @@ class person_test(models.Model):
     state = fields.Selection([
         ('su_dung', 'Sử dụng'), ('het_han', 'Hết hạn'), ('hong', 'Hỏng')
         ], default = 'su_dung')
-
+    
+    test_one2many = fields.One2many('school.giaovien', 'person_test_id')
+    test_many2many = fields.Many2many('school.giaovien')
 
     def click_button(self):
         print(self.name)
@@ -132,24 +134,54 @@ class person_test(models.Model):
     
     
     def test_ham(self):
+        
         # s = self.default_get(['name', 'age', 'gioi_tinh', 'birth_day'])    
         # print(s)
+        
         # print('=============================')
         #
         # s = self.name_create('Hello Person')
         # print('s: ', s)
         
-        self.write({'gioi_tinh': 'Nu_'})
-        print(self.env['school.2'])
+        # self.write({'gioi_tinh': 'Nu_'})
+        # print(self.env['school.2'])
+        #
+        # print(self._context)
+        # r2 = self.with_context({}, uid=6)
+        # print('r2:', r2._context)
+        # r2.env['school.giaovien']
         
-        print(self._context)
-        r2 = self.with_context({}, uid=6)
-        print('r2:', r2._context)
-        r2.env['school.giaovien']
+        # self.write({'name': 'new name123', 'gioi_tinh': 'Nam_'})
     
-  
-
+        # new_record = self.name_create(name='New Records123')
+        # print(new_record)
         
+        # self.test_wirte()
+        self.test_browse()
+    
+    #=============================#
+    #      Test ORM Method        #
+    #=============================#
+    def test_wirte(self):
+        #v = {'name': 'ggggg', 'address': 'gg', 'birth_day': '2020-12-12', 'gioi_tinh':'Nam_'}
+        #'test_many2many': (0, 0, })
+        self.write({
+            'name' : 'Person --Wirte',
+            'user_id' : 1, 
+            'test_date' : '2025-12-30', 
+            'test_datetime' : '2025-12-30 12:30:00',
+           
+        })
+    
+    def test_browse(self):
+        r = self.browse(31)
+        print('browse: ', r.name)
+        users = self.env['res.users'].browse([1,2])
+       
+        for o in users:
+            print(o.name)
+    
+    
 class test_name_valid(models.Model):
     _name='school.2'
     a = 'a ====================132323123213'

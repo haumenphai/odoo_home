@@ -44,6 +44,11 @@
 							<field name="related_field_test" />
 						</group>
 						
+						<group>
+							<field name="test_one2many" />
+							<field name="test_many2many" />
+						</group>
+						
 					</sheet>
 				</form>
 			</field> 

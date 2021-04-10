@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 from odoo.api import Environment
 import random
+from docutils.nodes import Invisible
 
 class GiaoVien(models.Model):
     _name = 'school.giaovien'
@@ -41,6 +42,12 @@ class GiaoVien(models.Model):
     
     def print_report(self): 
         return self.env.ref('my_school.report_giao_vien1').report_action(self)
+    
+    def test1234(self):
+        user1 = self.with_context({},uid=6)
+        print(user1._context)
+        
+    person_test_id = fields.Many2one('school.persontest', invisible=True)
 
 class Student(models.Model):
     _name = 'school.student'

@@ -40,6 +40,7 @@
 						<button name="test_v1" string="Button1" type="object"  />
 						<button string="Button2" type="object" class="oe_highlight" />
 						<button name="print_report" string="Print report test]" type="object" class="btn btn-dagger"	/>
+						<button name="test1234" string="Test 1234" type="object" />
 					</header>
 					
 					<sheet>
