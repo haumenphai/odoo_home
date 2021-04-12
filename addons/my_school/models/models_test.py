@@ -3,6 +3,7 @@ import random
 from pygments.lexer import _inherit
 from odoo.exceptions import ValidationError
 from mock.mock import self
+from serial.rfc2217 import EL
 i = 0;
 
 class person_test(models.Model):
@@ -157,8 +158,17 @@ class person_test(models.Model):
         # print(new_record)
         
         # self.test_wirte()
-        self.test_browse()
-    
+        # self.test_browse()
+        # self.test_exists()
+        # self.test_ref()
+        # self.test_search()
+        # self.test_search_count()
+        # self.test_name_search()
+        # self.test_read()
+        # self.test_read_group()
+        # self.test_fields_get()
+        self.test_fields_view_get()
+        
     #=============================#
     #      Test ORM Method        #
     #=============================#
@@ -173,7 +183,9 @@ class person_test(models.Model):
            
         })
     
+    
     def test_browse(self):
+        
         r = self.browse(31)
         print('browse: ', r.name)
         users = self.env['res.users'].browse([1,2])
@@ -182,9 +194,65 @@ class person_test(models.Model):
             print(o.name)
     
     
+    def test_exists(self):
+        r1 = self.browse(100)
+        if r1.exists():
+            print('Ton Tai')
+        
+        print('self.exists', self.exists())
+    
+    
+    def test_ref(self):
+        r1 = self.env.ref('my_school.report_giao_vien1')
+        print('ref: ', r1)
+        
+    
+    def test_search(self):
+        recordset = self.search([]) 
+        print('recordset: ', recordset)
+        
+        r1 = self.search(args=[('name', '=', 'Person COpy')], limit=4, order='test_domain')
+        print('r1: ', r1)
+        
+    
+    def test_search_count(self):
+        kq = self.search_count([('name', '=', 'Person COpy')])
+        print('kq: ', kq)
+        
+    
+    def test_name_search(self):
+        r1 = self.name_search(name='Person COpy', operator='=', args=[('name', '=', 'do2')])
+        print('name_search', r1)
+        
+        for o in r1:
+            print('a', o.name, o)
+        
+    
+    def test_read(self):
+        l1 = self.read(['name', 'age'])
+        print('l1', l1)
+        
+        
+    def test_read_group(self):
+        l1 = self.read_group(domain=[], fields=['name'], groupby=['name'])
+        print('read_group: ', l1)
+    
+    
+    def test_fields_get(self):
+        s = self.fields_get(['name', 'id'], ['string'])
+        print(s)
+    
+    
+    def test_fields_view_get(self):
+        s = self.fields_view_get(7)
+        print(s)
+        
+        
+        
 class test_name_valid(models.Model):
     _name='school.2'
     a = 'a ====================132323123213'
+        
         
 class test_xx(models.Model):
     _inherit = 'school.persontest'
