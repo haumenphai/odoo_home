@@ -192,8 +192,13 @@ class person_test(models.Model):
         print(s)
 
     def test_fields_view_get(self):
-        s = self.fields_view_get(2)
+        s = self.fields_view_get(369)
         print(s)
+
+    def test_unlink(self):
+
+        self.unlink()
+
 
     def test_ham(self):
         # s = self.default_get(['name', 'age', 'gioi_tinh', 'birth_day'])
@@ -227,8 +232,8 @@ class person_test(models.Model):
         # self.test_read()
         # self.test_read_group()
         # self.test_fields_get()
-        self.test_fields_view_get()
-
+        # self.test_fields_view_get()
+        self.unlink()
 
 class test_name_valid(models.Model):
     _name = 'school.2'

@@ -97,7 +97,8 @@ Tính năng chính
         'datas/data_cron.xml',
         'security/ir.model.access.csv',
         'views/reports.xml',
-        'datas/school.giaovien.csv'
+        'datas/school.giaovien.csv',
+        'datas/data_person_test.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
