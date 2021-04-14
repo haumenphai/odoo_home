@@ -104,6 +104,9 @@ Tính năng chính
     'demo': [
         'demo/demo.xml',
     ],
+    'qweb': [
+        'static/src/xml/add_button_tree_view.xml'
+    ],
     'images' : [
     	# 'static/description/main_screenshot.png'
     	],

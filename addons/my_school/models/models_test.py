@@ -232,7 +232,18 @@ class person_test(models.Model):
         # self.test_read_group()
         # self.test_fields_get()
         # self.test_fields_view_get()
-        self.unlink()
+        # self.unlink()
+        self.tesss1()
+    
+    def tesss1(self):
+        self.env
+        for r in self:
+            r.write(vals={'name':'dohaumen', 'age':1000})
+        
+    
+    def unlink(self):
+        super(person_test, self).unlink()
+    
 
 class test_name_valid(models.Model):
     _name = 'school.2'
