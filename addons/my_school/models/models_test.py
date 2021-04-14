@@ -196,7 +196,6 @@ class person_test(models.Model):
         print(s)
 
     def test_unlink(self):
-
         self.unlink()
 
 
