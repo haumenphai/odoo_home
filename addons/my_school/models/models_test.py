@@ -240,6 +240,7 @@ class person_test(models.Model):
         # self.test_fields_get()
         # self.test_fields_view_get()
         # self.unlink()
+<<<<<<< HEAD
         # self.tesss1()
         self.test_context()
     
@@ -255,12 +256,21 @@ class person_test(models.Model):
     
     def tesss1(self):
         # Write chỉ thực hiện được trên 1 record.
+=======
+        self.tesss1()
+    
+    def tesss1(self):
+        self.env
+>>>>>>> 05a4210522c3877dd83f9b816e64f857db28defd
         for r in self:
             r.write(vals={'name':'dohaumen', 'age':1000})
         
     
     def unlink(self):
+<<<<<<< HEAD
         print('unlink')
+=======
+>>>>>>> 05a4210522c3877dd83f9b816e64f857db28defd
         super(person_test, self).unlink()
     
 
