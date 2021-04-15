@@ -241,7 +241,10 @@ class person_test(models.Model):
         # self.test_fields_view_get()
         # self.unlink()
         # self.tesss1()
-        self.test_context()
+        # self.test_context()
+        self.create([{'name': '123'},{'name': '1234'}])
+        
+    
     
     def test_context(self):
         # Context là 1 dict chứa thông tin về current user, lang, timezone, ...
