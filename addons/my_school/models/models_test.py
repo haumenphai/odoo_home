@@ -162,6 +162,7 @@ class person_test(models.Model):
         print('ref: ', r1)
 
     def test_search(self):
+        # Search theo domain, trả về recordset
         recordset = self.search([])
         print('recordset: ', recordset)
 
@@ -169,10 +170,12 @@ class person_test(models.Model):
         print('r1: ', r1)
 
     def test_search_count(self):
+        # Chỉ trả về số lượng tìm thấy.
         kq = self.search_count([('name', '=', 'Person COpy')])
         print('kq: ', kq)
 
     def test_name_search(self):
+        # search theo name và domain.
         r1 = self.name_search(name='Person COpy', operator='=', args=[('name', '=', 'do2')])
         print('name_search', r1)
 
@@ -180,6 +183,7 @@ class person_test(models.Model):
             print('a', o.name, o)
 
     def test_read(self):
+        #Đọc giá trị các trường, return dict.
         l1 = self.read(['name', 'age'])
         print('l1', l1)
 
@@ -188,10 +192,13 @@ class person_test(models.Model):
         print('read_group: ', l1)
 
     def test_fields_get(self):
+        # Lấy các thôn tin về thuộc tính của field (string, readonly, help,...
+        # Trả về dict {'name': {string}, 'id': {string,}}
         s = self.fields_get(['name', 'id'], ['string'])
         print(s)
 
     def test_fields_view_get(self):
+        # Lấy thông tin, thành phần chi tiết của view.
         s = self.fields_view_get(369)
         print(s)
 
@@ -233,15 +240,27 @@ class person_test(models.Model):
         # self.test_fields_get()
         # self.test_fields_view_get()
         # self.unlink()
-        self.tesss1()
+        # self.tesss1()
+        self.test_context()
+    
+    def test_context(self):
+        # Context là 1 dict chứa thông tin về current user, lang, timezone, ...
+        print('context: ', self.env.context)
+        
+    
+    def test_with_user(self):
+        # Có thể thay đổi user mới để tương tác, thay đổi quyền hạn.
+        self.with_user(1).unlink()
+        
     
     def tesss1(self):
-        self.env
+        # Write chỉ thực hiện được trên 1 record.
         for r in self:
             r.write(vals={'name':'dohaumen', 'age':1000})
         
     
     def unlink(self):
+        print('unlink')
         super(person_test, self).unlink()
     
 

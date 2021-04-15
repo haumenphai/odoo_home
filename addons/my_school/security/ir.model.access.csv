@@ -20,6 +20,7 @@ access_mon_hoc2,mon_hoc2,model_school_monhoc,group_giao_vien,1,1,1,0
 
 
 
-a_person_test,person_test,model_school_persontest,,1,1,1,1
+a_person_test,person_test,model_school_persontest,group_tong_quan_ly_nha_truong,1,1,1,1
+a_person_test2,person_test2,model_school_persontest,group_giao_vien,1,1,1,0
 test_lao_cong,lao_cong,model_school_laocong,,1,1,1,1
 test_buoi_hoc,buoi_hoc,model_school_test_buoihoc,,1,1,1,1
