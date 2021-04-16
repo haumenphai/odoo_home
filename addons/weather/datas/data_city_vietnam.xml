@@ -1,0 +1,15 @@
+<odoo noupdate="1">
+
+	<record id="city1" model="weather.forecast">
+		<field name="name">Hải Phòng</field>
+		<field name="lat">20.874291</field>
+		<field name="lon">106.669734</field>
+	</record>
+	
+	<record id="city2" model="weather.forecast">
+		<field name="name">Hồ Chí Minh</field>
+		<field name="lat">10.814515</field>
+		<field name="lon">106.636717</field>
+	</record>
+
+</odoo>

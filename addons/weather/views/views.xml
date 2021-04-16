@@ -1,0 +1,67 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+  
+    <record id="weather_list" model="ir.ui.view">
+      <field name="name">weather list</field>
+      <field name="model">weather.forecast</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="temp_show"/>
+          <field name="humidity_show"/>
+          <field name="clouds_show" />
+          <field name="visibility_show"/>
+          <field name="wind_speed_show"/>
+          <field name="wind_deg_show" />
+        </tree>
+      </field>
+    </record>
+	
+	
+
+    <!-- actions opening views on models -->
+    <record id="weather_city_act" model="ir.actions.act_window">
+      <field name="name">weather forecast</field>
+      <field name="res_model">weather.forecast</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+	
+	 <menuitem id="weather_menu_root" name="Weather App" />
+	 <menuitem id="weather_city_menu" name="Weather City" action="weather_city_act" parent="weather_menu_root" />
+	 
+	
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="weather.action_server">
+      <field name="name">weather server</field>
+      <field name="model_id" ref="model_weather_weather"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="weather" id="weather.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="weather.menu_1" parent="weather.menu_root"/>
+    <menuitem name="Menu 2" id="weather.menu_2" parent="weather.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="weather.menu_1_list" parent="weather.menu_1"
+              action="weather.action_window"/>
+    <menuitem name="Server to list" id="weather" parent="weather.menu_2"
+              action="weather.action_server"/>
+-->
+  </data>
+</odoo>

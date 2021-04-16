@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "my_school",
+    'name': "weather",
     'name_vi_VN': "",
 
     'summary': """
@@ -77,36 +77,18 @@ Tính năng chính
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','mail'],
+    'depends': ['base'],
 
     # always loaded
-     'data': [
-        'security/school_group.xml',
-        'security/school_rule.xml',
-        'views/views.xml',
-        'views/view_hoc_sinh.xml',
-        'views/view_base.xml',
-        'views/view_giao_vien.xml',
-        'views/view_mon_hoc.xml',
-        'views/view_models_test.xml',
-        'views/templates.xml',
-        'views/school_menus.xml',
-        'datas/data_lop_hoc.xml',
-        'datas/data_hoc_sinh_test.xml',
-        'datas/data_mon_hoc.xml',
-        'datas/data_cron.xml',
+    'data': [
         'security/ir.model.access.csv',
-        'views/reports.xml',
-        'datas/school.giaovien.csv',
-        'datas/data_person_test.xml',
-        'myschool_template.xml'
+        'views/views.xml',
+        'views/templates.xml',
+        'datas/data_city_vietnam.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
-    ],
-    'qweb': [
-        'static/src/xml/add_button_tree_view.xml'
     ],
     'images' : [
     	# 'static/description/main_screenshot.png'
