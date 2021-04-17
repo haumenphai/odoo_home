@@ -1,7 +1,6 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-  
     <record id="weather_list" model="ir.ui.view">
       <field name="name">weather list</field>
       <field name="model">weather.forecast</field>
@@ -11,10 +10,53 @@
           <field name="temp_show"/>
           <field name="humidity_show"/>
           <field name="clouds_show" />
+          <field name="current_pop" />
           <field name="visibility_show"/>
           <field name="wind_speed_show"/>
-          <field name="wind_deg_show" />
+          <field name="wind_deg_show" /> 
+          <field name="weather_description" />
+          
         </tree>
+      </field>
+    </record>
+    
+    
+    <!--Kaban view-->
+    <record id="weather_kanban" model="ir.ui.view">
+      <field name="name">weather kanban</field>
+      <field name="model">weather.forecast</field>
+      <field name="arch" type="xml">
+        <kanban>
+           <templates>
+          		<t t-name="kanban-box">
+          			<div>
+          				<h3><field name="name"/></h3>
+          				<h4><field name="weather_description"/></h4> <br/>
+          				
+          				<b>Nhiệt độ: <span style="color:red"><field name="temp_show"/></span> </b> <br/>
+          				<b>Độ ẩm: <span style="color:blue"><field name="humidity_show"/></span> </b> <br/>
+          				<b>Mây: <field name="clouds_show"/> </b> <br/>
+          				<b>Khả năng mưa: <field name="current_pop" /></b> <br/> <br/>
+          				
+<!--           				<div style="background-color: #666666; height:1px"></div> -->
+          				
+          				
+          				
+          				<b>Tầm nhìn: <field name="visibility_show"/> </b> <br/>	
+          				<b>Tốc độ gió: <field name="wind_speed_show"/> </b> <br/>
+          				<b>Hướng gió: <field name="wind_deg_show"/> </b> <br/>
+          			
+          			
+          				
+          				
+						<field name="url_icon"  invisible="1"/>
+      					<img t-att-src="record.url_icon.value"  alt="" />
+      					
+  
+          			</div>
+          		</t>
+           </templates>
+        </kanban>
       </field>
     </record>
 	
@@ -24,7 +66,7 @@
     <record id="weather_city_act" model="ir.actions.act_window">
       <field name="name">weather forecast</field>
       <field name="res_model">weather.forecast</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 	
 	 <menuitem id="weather_menu_root" name="Weather App" />

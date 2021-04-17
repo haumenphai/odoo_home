@@ -1,0 +1,12 @@
+<odoo>
+	<record id="ir_cron_scheduler_demo_action" model="ir.cron">
+        <field name="name">Cron Update Weather Forecast</field>
+        <field name="interval_number">120</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_weather_forecast"/>
+        <field name="code">model.update_data_weather()</field> 
+        <field name="state">code</field>
+   </record>
+</odoo>

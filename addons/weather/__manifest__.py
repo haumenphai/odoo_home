@@ -4,11 +4,10 @@
     'name_vi_VN': "",
 
     'summary': """
-Short (1 phrase/line) summary of the module's purpose, used as
-subtitle on modules listing or apps.openerp.com""",
+Weather Forecast""",
 
     'summary_vi_VN': """
-Mô tả ngắn gọn bằng tiếng Việt (1 câu, 1 dòng) về mục đích của module
+App dự báo thời tiết
     	""",
 
     'description': """
@@ -77,14 +76,15 @@ Tính năng chính
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','mail'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'datas/data_city_vietnam.xml'
+        'datas/data_city_vietnam.xml',
+        'datas/cron_update_weather.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

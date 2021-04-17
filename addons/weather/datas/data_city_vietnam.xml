@@ -1,15 +1,503 @@
 <odoo noupdate="1">
-
-	<record id="city1" model="weather.forecast">
-		<field name="name">Hải Phòng</field>
-		<field name="lat">20.874291</field>
-		<field name="lon">106.669734</field>
-	</record>
 	
-	<record id="city2" model="weather.forecast">
-		<field name="name">Hồ Chí Minh</field>
-		<field name="lat">10.814515</field>
-		<field name="lon">106.636717</field>
-	</record>
+	 <record id="city69" model="weather.forecast">
+        <field name="name">Hải Phòng</field>
+        <field name="lat">20.855917</field>
+        <field name="lon"> 106.694626</field>
+    </record>
+    
 
+    <record id="city70" model="weather.forecast">
+        <field name="name">Hà Nội</field>
+        <field name="lat">21.020496</field>
+        <field name="lon"> 105.833263</field>
+    </record>
+    
+
+    <record id="city71" model="weather.forecast">
+        <field name="name">TP HCM</field>
+        <field name="lat">10.817871</field>
+        <field name="lon"> 106.630455</field>
+    </record>
+    
+	
+    <record id="city1" model="weather.forecast">
+        <field name="name">An Giang</field>
+        <field name="lat"> 10.505692</field>
+        <field name="lon"> 105.187835</field>
+    </record>
+    
+
+    <record id="city2" model="weather.forecast">
+        <field name="name">Bà Rịa - Vũng Tàu</field>
+        <field name="lat"> 10.595672</field>
+        <field name="lon"> 107.280819</field>
+    </record>
+    
+
+    <record id="city3" model="weather.forecast">
+        <field name="name">Bắc Giang</field>
+        <field name="lat"> 21.348277</field>
+        <field name="lon"> 106.419683</field>
+    </record>
+    
+
+    <record id="city4" model="weather.forecast">
+        <field name="name">Bắc Kạn</field>
+        <field name="lat">22.158279</field>
+        <field name="lon"> 105.834988</field>
+    </record>
+    
+
+    <record id="city5" model="weather.forecast">
+        <field name="name">Bạc Liêu</field>
+        <field name="lat">9.290564</field>
+        <field name="lon"> 105.723258</field>
+    </record>
+    
+
+    <record id="city6" model="weather.forecast">
+        <field name="name">Bắc Ninh</field>
+        <field name="lat">21.176431</field>
+        <field name="lon"> 106.066296</field>
+    </record>
+    
+
+    <record id="city7" model="weather.forecast">
+        <field name="name">Bến Tre</field>
+        <field name="lat">10.242779</field>
+        <field name="lon"> 106.375542</field>
+    </record>
+    
+
+    <record id="city8" model="weather.forecast">
+        <field name="name">Bình Định</field>
+        <field name="lat">14.234785</field>
+        <field name="lon"> 109.060661</field>
+    </record>
+    
+
+    <record id="city9" model="weather.forecast">
+        <field name="name">Quy Nhơn</field>
+        <field name="lat"> 13.782983</field>
+        <field name="lon"> 109.219595</field>
+    </record>
+    
+
+    <record id="city10" model="weather.forecast">
+        <field name="name">Bình Dương</field>
+        <field name="lat">11.231885</field>
+        <field name="lon"> 106.651751</field>
+    </record>
+    
+
+    <record id="city11" model="weather.forecast">
+        <field name="name">Bình Phước</field>
+        <field name="lat">11.737477</field>
+        <field name="lon"> 106.886652</field>
+    </record>
+    
+
+    <record id="city12" model="weather.forecast">
+        <field name="name">Bình Thuận</field>
+        <field name="lat">11.146585</field>
+        <field name="lon"> 108.140489</field>
+    </record>
+    
+
+    <record id="city13" model="weather.forecast">
+        <field name="name">Bình Thuận</field>
+        <field name="lat">11.146585</field>
+        <field name="lon"> 108.140489</field>
+    </record>
+    
+
+    <record id="city14" model="weather.forecast">
+        <field name="name">Phan Thiết</field>
+        <field name="lat">10.976763</field>
+        <field name="lon"> 108.264234</field>
+    </record>
+    
+
+    <record id="city15" model="weather.forecast">
+        <field name="name">Cà Mau</field>
+        <field name="lat">9.152193</field>
+        <field name="lon"> 105.195944</field>
+    </record>
+    
+
+    <record id="city16" model="weather.forecast">
+        <field name="name">Cao Bằng</field>
+        <field name="lat">22.666056</field>
+        <field name="lon"> 106.261639</field>
+    </record>
+    
+
+    <record id="city17" model="weather.forecast">
+        <field name="name">Đắk Lắk</field>
+        <field name="lat">12.904440</field>
+        <field name="lon"> 108.194657</field>
+    </record>
+    
+
+    <record id="city18" model="weather.forecast">
+        <field name="name">Buôn Ma Thuột</field>
+        <field name="lat">12.665681</field>
+        <field name="lon"> 108.037672</field>
+    </record>
+    
+
+    <record id="city19" model="weather.forecast">
+        <field name="name">Đắk Nông</field>
+        <field name="lat">12.163664</field>
+        <field name="lon"> 107.697490</field>
+    </record>
+    
+
+    <record id="city20" model="weather.forecast">
+        <field name="name">Điện Biên</field>
+        <field name="lat">21.405930</field>
+        <field name="lon"> 103.031860</field>
+    </record>
+    
+
+    <record id="city21" model="weather.forecast">
+        <field name="name">Đồng Nai</field>
+        <field name="lat">11.005057</field>
+        <field name="lon"> 107.194666</field>
+    </record>
+    
+
+    <record id="city22" model="weather.forecast">
+        <field name="name">Đồng Tháp</field>
+        <field name="lat">10.620775</field>
+        <field name="lon"> 105.649945</field>
+    </record>
+    
+
+    <record id="city23" model="weather.forecast">
+        <field name="name">Gia Lai</field>
+        <field name="lat">13.866409</field>
+        <field name="lon"> 108.238006</field>
+    </record>
+    
+
+    <record id="city24" model="weather.forecast">
+        <field name="name">Hà Giang</field>
+        <field name="lat">22.801670</field>
+        <field name="lon"> 104.978710</field>
+    </record>
+    
+
+    <record id="city25" model="weather.forecast">
+        <field name="name">Hà Nam</field>
+        <field name="lat">20.533542</field>
+        <field name="lon"> 105.990965</field>
+    </record>
+    
+
+    <record id="city26" model="weather.forecast">
+        <field name="name">Hà Tĩnh</field>
+        <field name="lat">18.345682</field>
+        <field name="lon"> 105.892674</field>
+    </record>
+    
+
+    <record id="city27" model="weather.forecast">
+        <field name="name">Hải Dương</field>
+        <field name="lat">20.936427</field>
+        <field name="lon"> 106.320123</field>
+    </record>
+    
+
+    <record id="city28" model="weather.forecast">
+        <field name="name">Hậu Giang</field>
+        <field name="lat">9.796628</field>
+        <field name="lon"> 105.616896</field>
+    </record>
+    
+
+    <record id="city29" model="weather.forecast">
+        <field name="name">Hòa Bình</field>
+        <field name="lat">20.823456</field>
+        <field name="lon"> 105.340450</field>
+    </record>
+    
+
+    <record id="city30" model="weather.forecast">
+        <field name="name">Hưng Yên</field>
+        <field name="lat">20.813912</field>
+        <field name="lon"> 106.053285</field>
+    </record>
+    
+
+    <record id="city31" model="weather.forecast">
+        <field name="name">Khánh Hòa</field>
+        <field name="lat">12.281003</field>
+        <field name="lon"> 109.001859</field>
+    </record>
+    
+
+    <record id="city32" model="weather.forecast">
+        <field name="name">Nha Trang</field>
+        <field name="lat">12.238856</field>
+        <field name="lon"> 109.196738</field>
+    </record>
+    
+
+    <record id="city33" model="weather.forecast">
+        <field name="name">Cam Ranh</field>
+        <field name="lat"> 11.961326</field>
+        <field name="lon"> 109.183134</field>
+    </record>
+    
+
+    <record id="city34" model="weather.forecast">
+        <field name="name">Kiên Giang</field>
+        <field name="lat">9.977782</field>
+        <field name="lon"> 105.177661</field>
+    </record>
+    
+
+    <record id="city35" model="weather.forecast">
+        <field name="name">Phú Quốc</field>
+        <field name="lat"> 10.270375</field>
+        <field name="lon"> 103.978402</field>
+    </record>
+    
+
+    <record id="city36" model="weather.forecast">
+        <field name="name">Kon Tum</field>
+        <field name="lat">14.343897</field>
+        <field name="lon"> 108.013156</field>
+    </record>
+    
+
+    <record id="city37" model="weather.forecast">
+        <field name="name">Lai Châu</field>
+        <field name="lat">22.377852</field>
+        <field name="lon"> 103.472007</field>
+    </record>
+    
+
+    <record id="city38" model="weather.forecast">
+        <field name="name">Lâm Đồng</field>
+        <field name="lat">11.802784</field>
+        <field name="lon"> 108.186967</field>
+    </record>
+    
+
+    <record id="city39" model="weather.forecast">
+        <field name="name">Lạng Sơn</field>
+        <field name="lat">21.850850</field>
+        <field name="lon"> 106.766057</field>
+    </record>
+    
+
+    <record id="city40" model="weather.forecast">
+        <field name="name">Lào Cai</field>
+        <field name="lat">22.480529</field>
+        <field name="lon"> 103.975550</field>
+    </record>
+    
+
+    <record id="city41" model="weather.forecast">
+        <field name="name">Long An</field>
+        <field name="lat">10.754750</field>
+        <field name="lon"> 106.258419</field>
+    </record>
+    
+
+    <record id="city42" model="weather.forecast">
+        <field name="name">Nam Định</field>
+        <field name="lat">20.429578</field>
+        <field name="lon"> 106.168227</field>
+    </record>
+    
+
+    <record id="city43" model="weather.forecast">
+        <field name="name">Nghệ An</field>
+        <field name="lat">19.054224</field>
+        <field name="lon"> 105.443204</field>
+    </record>
+    
+
+    <record id="city44" model="weather.forecast">
+        <field name="name">Ninh Bình</field>
+        <field name="lat">20.246968</field>
+        <field name="lon"> 105.970130</field>
+    </record>
+    
+
+    <record id="city45" model="weather.forecast">
+        <field name="name">Ninh Thuận</field>
+        <field name="lat">11.653204</field>
+        <field name="lon"> 108.945638</field>
+    </record>
+    
+
+    <record id="city46" model="weather.forecast">
+        <field name="name">Phú Thọ</field>
+        <field name="lat">21.307744</field>
+        <field name="lon"> 105.142054</field>
+    </record>
+    
+
+    <record id="city47" model="weather.forecast">
+        <field name="name">Quảng Bình</field>
+        <field name="lat">17.519365</field>
+        <field name="lon"> 106.403920</field>
+    </record>
+    
+
+    <record id="city48" model="weather.forecast">
+        <field name="name">Đồng Hới</field>
+        <field name="lat"> 17.465428</field>
+        <field name="lon"> 106.597157</field>
+    </record>
+    
+
+    <record id="city49" model="weather.forecast">
+        <field name="name">Quảng Nam</field>
+        <field name="lat">15.568581</field>
+        <field name="lon"> 108.053969</field>
+    </record>
+    
+
+    <record id="city50" model="weather.forecast">
+        <field name="name">Quảng Ngãi</field>
+        <field name="lat">15.138031</field>
+        <field name="lon"> 108.839256</field>
+    </record>
+    
+
+    <record id="city51" model="weather.forecast">
+        <field name="name">Quảng Ninh</field>
+        <field name="lat">21.151432</field>
+        <field name="lon"> 107.361547</field>
+    </record>
+    
+
+    <record id="city52" model="weather.forecast">
+        <field name="name">Quảng Trị</field>
+        <field name="lat">16.754080</field>
+        <field name="lon"> 106.948277</field>
+    </record>
+    
+
+    <record id="city53" model="weather.forecast">
+        <field name="name">Sóc Trăng</field>
+        <field name="lat">9.604323</field>
+        <field name="lon"> 105.972606</field>
+    </record>
+    
+
+    <record id="city54" model="weather.forecast">
+        <field name="name">Sơn La</field>
+        <field name="lat">21.224137</field>
+        <field name="lon"> 104.080017</field>
+    </record>
+    
+
+    <record id="city55" model="weather.forecast">
+        <field name="name">Tây Ninh</field>
+        <field name="lat">11.369395</field>
+        <field name="lon"> 106.130511</field>
+    </record>
+    
+
+    <record id="city56" model="weather.forecast">
+        <field name="name">Thái Bình</field>
+        <field name="lat">20.444413</field>
+        <field name="lon"> 106.344995</field>
+    </record>
+    
+
+    <record id="city57" model="weather.forecast">
+        <field name="name">Thái Nguyên</field>
+        <field name="lat">21.667392</field>
+        <field name="lon"> 105.814665</field>
+    </record>
+    
+
+    <record id="city58" model="weather.forecast">
+        <field name="name">Thanh Hóa</field>
+        <field name="lat">19.806599</field>
+        <field name="lon"> 105.781912</field>
+    </record>
+    
+
+    <record id="city59" model="weather.forecast">
+        <field name="name">Thừa Thiên Huế</field>
+        <field name="lat">16.326467</field>
+        <field name="lon"> 107.511859</field>
+    </record>
+    
+
+    <record id="city60" model="weather.forecast">
+        <field name="name">Tiền Giang</field>
+        <field name="lat">10.424552</field>
+        <field name="lon"> 106.342102</field>
+    </record>
+    
+
+    <record id="city61" model="weather.forecast">
+        <field name="name">Trà Vinh</field>
+        <field name="lat">9.940881</field>
+        <field name="lon"> 106.338847</field>
+    </record>
+    
+
+    <record id="city62" model="weather.forecast">
+        <field name="name">Tuyên Quang</field>
+        <field name="lat">21.775941</field>
+        <field name="lon"> 105.230417</field>
+    </record>
+    
+
+    <record id="city63" model="weather.forecast">
+        <field name="name">Vĩnh Long</field>
+        <field name="lat">10.244117</field>
+        <field name="lon"> 105.953169</field>
+    </record>
+    
+
+    <record id="city64" model="weather.forecast">
+        <field name="name">Vĩnh Phúc</field>
+        <field name="lat">21.373817</field>
+        <field name="lon"> 105.561682</field>
+    </record>
+    
+
+    <record id="city65" model="weather.forecast">
+        <field name="name">Yên Bái</field>
+        <field name="lat">21.779274</field>
+        <field name="lon"> 104.576700</field>
+    </record>
+    
+
+    <record id="city66" model="weather.forecast">
+        <field name="name">Phú Yên</field>
+        <field name="lat">13.203781</field>
+        <field name="lon"> 109.114554</field>
+    </record>
+    
+
+    <record id="city67" model="weather.forecast">
+        <field name="name">Cần Thơ</field>
+        <field name="lat">10.038749</field>
+        <field name="lon"> 105.756540</field>
+    </record>
+    
+
+    <record id="city68" model="weather.forecast">
+        <field name="name">Đà Nẵng</field>
+        <field name="lat">16.046341</field>
+        <field name="lon"> 108.203873</field>
+    </record>
+    
+
+   
+
+	
 </odoo>
