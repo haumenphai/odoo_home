@@ -7,17 +7,82 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="temp_show"/>
-          <field name="humidity_show"/>
-          <field name="clouds_show" />
+          <field name="temp"/>
+          <field name="humidity"/>
+          <field name="clouds" />
           <field name="current_pop" />
-          <field name="visibility_show"/>
-          <field name="wind_speed_show"/>
-          <field name="wind_deg_show" /> 
+          <field name="visibility"/>
+          <field name="wind_speed"/>
+          <field name="wind_deg" /> 
           <field name="weather_description" />
           
         </tree>
       </field>
+    </record>
+    
+    <!-- From View -->
+    <record id="weather_from" model="ir.ui.view">
+       <field name="name">weather form</field>
+       <field name="model">weather.forecast</field>
+       <field name="arch" type="xml">
+          <form>
+          	 <sheet>
+          	 	<div>
+          	 		<h1><field name="name"/> - <field name="temp"/></h1>
+          	 		 
+          	 		<field name="url_icon"  invisible="1"/>
+      				<img t-att-src="record.url_icon.value"  alt="" />
+          	 		<span style="font-size:20px"><field name="weather_description" /></span>
+          	 		
+          	 	</div>
+          	 	<group>
+          	 		<group>
+          	 			<field name="current_pop" />
+          	 			<field name="clouds" />
+           				<field name="humidity"/>
+           				<field name="visibility"/>
+           				<field name="wind_speed"/>
+           				<field name="wind_deg" /> 
+           				<field name="pressure" />
+          	 		</group>
+          	 	
+          	 		<group>
+          	 			<field name="sunrise" />
+          	 			<field name="sunset" />
+          	 		</group>
+          	 		
+          	 		<group>
+          	 			<field name="sunset" />
+          	 			<field name="hourly_ids" />
+          	 		</group>
+          	 		
+          	 	</group>
+          	 	<table style="width:100%">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th> 
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+  </tr>
+</table>
+          	 	
+          	 </sheet>
+          </form>
+       </field>
     </record>
     
     
@@ -33,18 +98,18 @@
           				<h3><field name="name"/></h3>
           				<h4><field name="weather_description"/></h4> <br/>
           				
-          				<b>Nhiệt độ: <span style="color:red"><field name="temp_show"/></span> </b> <br/>
-          				<b>Độ ẩm: <span style="color:blue"><field name="humidity_show"/></span> </b> <br/>
-          				<b>Mây: <field name="clouds_show"/> </b> <br/>
+          				<b>Nhiệt độ: <span style="color:red"><field name="temp"/></span> </b> <br/>
+          				<b>Độ ẩm: <span style="color:blue"><field name="humidity"/></span> </b> <br/>
+          				<b>Mây: <field name="clouds"/> </b> <br/>
           				<b>Khả năng mưa: <field name="current_pop" /></b> <br/> <br/>
           				
 <!--           				<div style="background-color: #666666; height:1px"></div> -->
           				
           				
           				
-          				<b>Tầm nhìn: <field name="visibility_show"/> </b> <br/>	
-          				<b>Tốc độ gió: <field name="wind_speed_show"/> </b> <br/>
-          				<b>Hướng gió: <field name="wind_deg_show"/> </b> <br/>
+          				<b>Tầm nhìn: <field name="visibility"/> </b> <br/>	
+          				<b>Tốc độ gió: <field name="wind_speed"/> </b> <br/>
+<!--           				<b>Hướng gió: <field name="wind_deg"/> </b> <br/> -->
           			
           			
           				
