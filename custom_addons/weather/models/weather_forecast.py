@@ -96,7 +96,7 @@ class WeatherForecast(models.Model):
             
             
             self._update_hourly(data['hourly'])
-            
+
         
        
     
