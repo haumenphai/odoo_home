@@ -70,7 +70,7 @@ class WeatherForecast(models.Model):
             else:
                 data = self.get_data_weather_onecall(lat=city.lat, lon=city.lon, units='metric', apikey=apikey2, lang='vi')
             
-            data = self._conver_data(data)
+            data = self._convert_data(data)
                 
             current = data['current']
             weather = data['current']['weather'][0]
@@ -96,24 +96,16 @@ class WeatherForecast(models.Model):
 
             j = 0
             hour_list = data['hourly']
-            # print('ids', self.hourly_ids)
 
             # length hourly_ids = 6.
             for hour in self.hourly_ids:
                 hour.update_hourly(hour_list[j])
-
-                # hour.write({
-                #     'temp': hour_list[j]['temp']
-                # })
                 j += 1
-                print(hour.temp)
-                # print(hour.conver_data(hour_list[j]))
 
             if i == 3: break
-            # self._update_hourly(data['hourly'])
 
 
-    def _conver_data(self, data):
+    def _convert_data(self, data):
         result = data.copy()
         print('result: ', result)
         current = result['current']
@@ -145,4 +137,3 @@ class WeatherForecast(models.Model):
     
     def unlink(self):
         self.update_data_weather()
-        # print(self.hourly_ids)
