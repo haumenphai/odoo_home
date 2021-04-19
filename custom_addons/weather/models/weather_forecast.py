@@ -53,13 +53,9 @@ class WeatherForecast(models.Model):
     def _get_url_icon(self):
         for r in self:
             r.url_icon = f'http://openweathermap.org/img/wn/{r.weather_icon}@2x.png'
-     
-     
- 
+    
     url_icon = fields.Char(compute=_get_url_icon)
     hourly_ids = fields.Many2many('weather.hourly')
-    
-    
     
     
     def update_data_weather(self):
@@ -84,7 +80,6 @@ class WeatherForecast(models.Model):
                 'feels_like': current['feels_like'],
                 'humidity': current['humidity'],
                 'pressure': current['pressure'],
-                'humidity': current['humidity'],
                 'clouds':   current['clouds'],
                 'visibility': current['visibility'],
                 'wind_speed': current['wind_speed'],
@@ -100,7 +95,7 @@ class WeatherForecast(models.Model):
             })
             
             
-            # self._update_hourly(data['hourly'])
+            self._update_hourly(data['hourly'])
             
         
        

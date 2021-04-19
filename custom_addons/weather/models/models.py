@@ -43,45 +43,47 @@ class WeatherHourly(models.Model):
     
     
     
-    # def _conver_data(self, data):
-        # result = data.copy()
-        #
-        #
-        # data['dt'] = unix2datetime(data['dt'])
-        #
-        # data['temp'] = f"{round(data['temp'])} ºC"
-        # data['feels_like'] = f"{round(data['feels_like'])} ºC"
-        # data['pressure'] = f"{round(data['pressure'])} hPa"
-        # data['humidity'] = f"{round(data['humidity'])} %"
-        # data['clouds'] = f"{round(data['clouds'])} %"
-        # data['visibility'] = f"{round(data['visibility'])} m"
-        # data['wind_speed'] = f"{round(data['wind_speed'], 2)} m/s"
-        # data['wind_deg'] = f"{round(data['wind_deg'])} º"
-        # data['pop'] = f"{data['pop'] * 100} %"
-        #
-        # return result
-        #
-        #
-    # def update_hourly(self, data_hourly):
+    def _conver_list_data(self, data):
+        result = data.copy()
+        print('aaaaaaaaaaa', result)
+        
+        for o in result:
+            o['dt'] = unix2datetime(o['dt'])
+        
+            o['temp'] = f"{round(o['temp'])} ºC"
+            o['feels_like'] = f"{round(o['feels_like'])} ºC"
+            o['pressure'] = f"{round(o['pressure'])} hPa"
+            o['humidity'] = f"{round(o['humidity'])} %"
+            o['clouds'] = f"{round(o['clouds'])} %"
+            o['visibility'] = f"{round(o['visibility'])} m"
+            o['wind_speed'] = f"{round(o['wind_speed'], 2)} m/s"
+            o['wind_deg'] = f"{round(o['wind_deg'])} º"
+            o['pop'] = f"{o['pop'] * 100} %"
+        
+       
+        
+        return result
+        
+        
+        
+    def update_hourly(self, data_hourly):
         # hourly = self.search([])
-        #
-        # for r in hourly:
-            # try:
-                # data = self._conver_data(data_hourly)
-                # for o in data:
-                    # r.write({
-                    # 'time': o['dt'],
-                    # 'temp': o['temp'],
-                    # 'pop': o['pop'],
-                    # 'humidity': o['humidity'],
-                    # 'clouds': o['clouds'],
-                    # 'wind_speed': o['wind_speed'],
-                    # 'weather_description': o['weather'][0]['description'],
-                    # 'weather_main': o['weather'][0]['main'],
-                    # 'weather_icon': o['weather'][0]['icon']
-                    # })
-            # except Exception as e:
-                # print(e)
+        
+       
+        data_hourly = self._conver_list_data(data_hourly)
+        for o in data_hourly:
+                    self.write({
+                    'time': o['dt'],
+                    'temp': o['temp'],
+                    'pop': o['pop'],
+                    'humidity': o['humidity'],
+                    'clouds': o['clouds'],
+                    'wind_speed': o['wind_speed'],
+                    'weather_description': o['weather'][0]['description'],
+                    'weather_main': o['weather'][0]['main'],
+                    'weather_icon': o['weather'][0]['icon']
+                    })
+            
             
         
     
