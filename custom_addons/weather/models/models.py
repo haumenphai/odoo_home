@@ -14,7 +14,8 @@ def unix2datetime(unixtime):
 class WeatherHourly(models.Model):
     _name = 'weather.hourly'
     _description = ''
-    _rec_name='time'
+    # _rec_name='time'
+    name = fields.Char()
 
     time = fields.Datetime('Lúc')
     temp = fields.Char('Nhiệt độ')
@@ -36,50 +37,42 @@ class WeatherHourly(models.Model):
 
     json = fields.Text()
 
-
-
-
-
-
-
-
-    def _conver_list_data(self, data):
+    def convert_data(self, data):
         result = data.copy()
-        print('aaaaaaaaaaa', result)
 
-        for o in result:
-            o['dt'] = unix2datetime(o['dt'])
+        result['dt'] = unix2datetime(result['dt'])
 
-            o['temp'] = f"{round(o['temp'])} ºC"
-            o['feels_like'] = f"{round(o['feels_like'])} ºC"
-            o['pressure'] = f"{round(o['pressure'])} hPa"
-            o['humidity'] = f"{round(o['humidity'])} %"
-            o['clouds'] = f"{round(o['clouds'])} %"
-            o['visibility'] = f"{round(o['visibility'])} m"
-            o['wind_speed'] = f"{round(o['wind_speed'], 2)} m/s"
-            o['wind_deg'] = f"{round(o['wind_deg'])} º"
-            o['pop'] = f"{o['pop'] * 100} %"
-
+        result['temp'] = f"{round(result['temp'])} ºC"
+        result['feels_like'] = f"{round(result['feels_like'])} ºC"
+        result['pressure'] = f"{round(result['pressure'])} hPa"
+        result['humidity'] = f"{round(result['humidity'])} %"
+        result['clouds'] = f"{round(result['clouds'])} %"
+        result['visibility'] = f"{round(result['visibility'])} m"
+        result['wind_speed'] = f"{round(result['wind_speed'], 2)} m/s"
+        result['wind_deg'] = f"{round(result['wind_deg'])} º"
+        result['pop'] = f"{result['pop'] * 100} %"
 
 
         return result
 
 
 
-    def update_hourly(self, data_hourly):
-        # hourly = self.search([])
+    def update_hourly(self, data):
+        """
+            self: single
+            data: single data hourly
+        """
 
+        data1 = self.convert_data(data)
 
-        data_hourly = self._conver_list_data(data_hourly)
-        for o in data_hourly:
-            self.write({
-                'time': o['dt'],
-                'temp': o['temp'],
-                'pop': o['pop'],
-                'humidity': o['humidity'],
-                'clouds': o['clouds'],
-                'wind_speed': o['wind_speed'],
-                'weather_description': o['weather'][0]['description'],
-                'weather_main': o['weather'][0]['main'],
-                'weather_icon': o['weather'][0]['icon']
-            })
+        self.write({
+            'time': data1['dt'],
+            'temp': data1['temp'],
+            'pop': data1['pop'],
+            'humidity': data1['humidity'],
+            'clouds': data1['clouds'],
+            'wind_speed': data1['wind_speed'],
+            'weather_description': data1['weather'][0]['description'],
+            'weather_main': data1['weather'][0]['main'],
+            'weather_icon': data1['weather'][0]['icon']
+        })

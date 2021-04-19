@@ -1,0 +1,9 @@
+<odoo noupdate="1">
+    <record id="city1_1" model="weather.hourly"></record>
+    <record id="city1_2" model="weather.hourly"></record>
+    <record id="city1_3" model="weather.hourly"></record>
+    <record id="city1_4" model="weather.hourly"></record>
+    <record id="city1_5" model="weather.hourly"></record>
+    <record id="city1_6" model="weather.hourly"></record>
+
+</odoo>

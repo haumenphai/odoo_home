@@ -93,40 +93,26 @@ class WeatherForecast(models.Model):
                 'dt': current['dt'],
                 'current_pop': data['current_pop']
             })
-            
-            
-            self._update_hourly(data['hourly'])
 
-        
-       
-    
-    def _update_hourly(self, data_hourly):
-       
-        h1 = self.env['weather.hourly'].create({})
-        h2 = self.env['weather.hourly'].create({})
-        h3 = self.env['weather.hourly'].create({})
-        h4 = self.env['weather.hourly'].create({})
-        
-        h1.update_hourly(data_hourly)
-        h2.update_hourly(data_hourly)
-        h3.update_hourly(data_hourly)
-        h4.update_hourly(data_hourly)
-        
-        print('h11h1h1hh1h1h1', h1)
-        
-        self.write({'hourly_ids': (4, h1.id, 0)})
-        self.write({'hourly_ids': (4, h2.id, 0)})
-        self.write({'hourly_ids': (4, h3.id, 0)})
-        self.write({'hourly_ids': (4, h4.id, 0)})
-        
-      
-        #
-        # h1.env['weather.hourly'].write(4, h1.id, 0)
-        # h2.env['weather.hourly'].write(4, h2.id, 0)
-        # h3.env['weather.hourly'].write(4, h3.id, 0)
-        # h4.env['weather.hourly'].write(4, h4.id, 0)
-        #
-    
+            j = 0
+            hour_list = data['hourly']
+            # print('ids', self.hourly_ids)
+
+            # length hourly_ids = 6.
+            for hour in self.hourly_ids:
+                hour.update_hourly(hour_list[j])
+
+                # hour.write({
+                #     'temp': hour_list[j]['temp']
+                # })
+                j += 1
+                print(hour.temp)
+                # print(hour.conver_data(hour_list[j]))
+
+            if i == 3: break
+            # self._update_hourly(data['hourly'])
+
+
     def _conver_data(self, data):
         result = data.copy()
         print('result: ', result)
@@ -159,4 +145,4 @@ class WeatherForecast(models.Model):
     
     def unlink(self):
         self.update_data_weather()
-
+        # print(self.hourly_ids)

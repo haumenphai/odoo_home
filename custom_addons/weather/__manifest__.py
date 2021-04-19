@@ -82,9 +82,11 @@ Tính năng chính
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
+        'datas/data_hourly.xml',
         'views/templates.xml',
         'datas/data_city_vietnam.xml',
-        'datas/cron_update_weather.xml'
+        'datas/cron_update_weather.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
