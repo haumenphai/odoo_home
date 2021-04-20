@@ -168,13 +168,46 @@ class WeatherForecast(models.Model):
         self._update_data_tomorrow()
         
         print('set to tomorrow')
-    
+        
+   
+
     
     def _update_data_tomorrow(self):
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree'
+        cities = self.search([])
         
-        
+        for city in cities:
+            data_tomorrow = city.daily_ids[1].get_data_one_day()
+            city['temp'] = data_tomorrow['temp']
+            city['humidity'] = data_tomorrow['humidity']
+            city['clouds'] = data_tomorrow['clouds']
+            city['pop'] = data_tomorrow['pop']
+            city['visibility'] = 'Null'
+            city['wind_speed'] = data_tomorrow['wind_speed']
+            city['wind_deg'] = data_tomorrow['wind_deg']
+            city['weather_description'] = data_tomorrow['weather_description']
+            city['pressure'] = data_tomorrow['pressure']
+            
+            city['sunset_show'] = data_tomorrow['sunset_show'] # co the khong can thiet 
+            city['sunrise_show'] = data_tomorrowp['sunrise_show'] # co the khong can thiet
+            
+    
+    current_json = fields.Text()
+    def get_current_data(self):
+        r = {}
+        r['temp'] = self.temp
+        r['humidity'] = self.humidity
+        r['clouds'] = self.clouds
+        r['pop'] = self.pop
+        r['visibility'] = self.visibility
+        r['wind_speed'] = self.wind_speed
+        r['wind_deg'] = self.wind_deg
+        r['weather_description'] = self.weather_description
+        r['pressure'] = self.pressure
+        r['sunset_show'] = self.sunset_show
+        r['sunrise_show'] = self.sunrise_show  
+    
     
     @api.model
     def set_forecast_to_current(self):
