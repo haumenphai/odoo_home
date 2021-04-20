@@ -3,12 +3,20 @@ from odoo import models, fields, api
 
 from urllib.request import urlopen
 import json, time
+from dateutil import tz
+
 from datetime import datetime
+
 
 def unix2datetime(unixtime):
     return datetime.utcfromtimestamp(unixtime)
 
-
+def convertime(datetime, str_tz, format):
+    to_zone = tz.gettz(str_tz)
+    timel = datetime.astimezone(to_zone)
+    result = timel.strftime(format)
+    
+    return result
 
   
 apikey1 = '3e65cba6de46a1e4074e68215ed5938a'
@@ -35,9 +43,13 @@ class WeatherForecast(models.Model):
     wind_speed = fields.Char('Tốc độ gió')
     wind_deg = fields.Char('Hướng gió')
     
-    sunrise = fields.Datetime('Bình minh')
-    sunset = fields.Datetime('Hoàng hôn')
+    sunrise = fields.Datetime()
+    sunset = fields.Datetime()
+    sunrise_show = fields.Char('Bình minh')
+    sunset_show = fields.Char('Hoàng hôn')
     
+    
+    timezone = fields.Char()
     dt = fields.Datetime(string='Cập nhật lúc')
     current_pop = fields.Char('Xác xuất mưa')
     
@@ -47,19 +59,18 @@ class WeatherForecast(models.Model):
     weather_icon = fields.Char()
 
     
+    url_icon = fields.Char(compute='_get_url_icon')
+    hourly_ids = fields.Many2many('weather.hourly')
+    daily_ids = fields.Many2many('weather.daily')
     
-    #==========================================================================
+    
     @api.depends('weather_icon')
     def _get_url_icon(self):
         for r in self:
             r.url_icon = f'http://openweathermap.org/img/wn/{r.weather_icon}@2x.png'
     
-    url_icon = fields.Char(compute=_get_url_icon)
-    hourly_ids = fields.Many2many('weather.hourly')
-    
     
     def update_data_weather(self):
-        # self.env['weather.hourly'].search([]).unlink()
         i = 0
         cities = self.search([])
         
@@ -91,19 +102,30 @@ class WeatherForecast(models.Model):
                 'weather_description': weather['description'],
                 'weather_icon': weather['icon'],
                 'dt': current['dt'],
-                'current_pop': data['current_pop']
+                'current_pop': data['current_pop'],
+                'timezone': data['timezone'],
+                'sunset_show': data['sunset_show'],
+                'sunrise_show': data['sunrise_show']
+                
             })
 
             j = 0
             hour_list = data['hourly']
+            day_list = data['daily']
 
             # length hourly_ids = 6.
-            for hour in self.hourly_ids:
-                hour.update_hourly(hour_list[j])
+            for hour in city.hourly_ids:
+                hour.update_hourly(hour_list[j], data['timezone'])
+                j += 1
+            
+            j = 0
+            for day in city.daily_ids:
+                day.update_data_daily(day_list[j], data['timezone'])
                 j += 1
 
+            
             if i == 3: break
-
+        self.set_act_window_label(f"Thời tiết hiện tại cập nhật lúc: {convertime(cities[0].dt, cities[0].timezone, '%H:%M')}")
 
     def _convert_data(self, data):
         result = data.copy()
@@ -128,11 +150,44 @@ class WeatherForecast(models.Model):
         pop = f"{int(result['hourly'][0]['pop'] * 100)} %"
         result['current_pop'] = pop
         
+        result['sunset_show'] = convertime(current['sunset'], data['timezone'], '%H:%M')
+        result['sunrise_show'] = convertime(current['sunset'], data['timezone'], '%H:%M')
+        
         return result
+    
+    
+    def set_act_window_label(self, label):
+        act_window = self.env.ref('weather.weather_city_act')
+        act_window.name = label
         
         
+    
+    @api.model 
+    def set_forecast_to_tomorrow(self):
+        self.set_act_window_label('Đang xem thời tiết ngày mai')
+        self._update_data_tomorrow()
         
-       
+        print('set to tomorrow')
+    
+    
+    def _update_data_tomorrow(self):
+        act_window = self.env.ref('weather.weather_city_act')
+        act_window.view_mode = 'tree'
+        
+        
+    
+    @api.model
+    def set_forecast_to_current(self):
+        self.set_act_window_label('Thời tiết hôm nay')
+        self._update_data_current()
+        
+        print('set to tomorow')
+        
+    def _update_data_current(self):
+        act_window = self.env.ref('weather.weather_city_act')
+        act_window.view_mode = 'tree,form,kanban'
+
+    
     
     
     def unlink(self):

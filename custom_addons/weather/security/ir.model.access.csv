@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 w1,weather1,model_weather_forecast,,1,1,0,1
 w2,weather2,model_weather_hourly,,1,1,1,1
+w3,weather3,model_weather_daily,,1,1,1,1

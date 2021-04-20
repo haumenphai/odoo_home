@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import models, weather_api, weather_forecast
+from . import weather_hourly, weather_api, weather_forecast, weather_daily

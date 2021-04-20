@@ -82,15 +82,20 @@ Tính năng chính
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
+        'datas/data_daily.xml',
         'datas/data_hourly.xml',
         'views/templates.xml',
         'datas/data_city_vietnam.xml',
         'datas/cron_update_weather.xml',
+        'views/templates.xml'
 
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
+    ],
+    'qweb': [
+        'static/src/xml/btn_test_123.xml', # <-- khai bao thua ke qweb vua hien thuc
     ],
     'images' : [
     	# 'static/description/main_screenshot.png'

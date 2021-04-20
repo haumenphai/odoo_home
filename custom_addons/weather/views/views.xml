@@ -28,7 +28,7 @@
           <form>
           	 <sheet>
           	 	<div>
-          	 		<h1><field name="name"/> - <field name="temp"/></h1>
+          	 		<h1><field name="name"/> | <field name="temp"/></h1>
 
           	 		<field name="url_icon"  invisible="1"/>
       				<img t-att-src="record.url_icon.value"  alt="" />
@@ -47,47 +47,45 @@
           	 		</group>
 
           	 		<group>
-          	 			<field name="sunrise" />
-          	 			<field name="sunset" />
+          	 			<field name="sunrise_show" />
+          	 			<field name="sunset_show" />
+          	 			<field name="dt" />
           	 		</group>
 
-          	 		<group>
-          	 			<field name="sunset" />
-
-          	 		</group>
-
+          	 	
+					<br/>
+					<h3>Dự báo theo giờ</h3>
                     <field name="hourly_ids" >
                         <tree>
-                            <field name="temp"/>
-                            <field name="time" />
+                            <field name="time_show" />
+                            <field name="temp" />
                             <field name="pop" />
+                            <field name="humidity" />
+                            <field name="clouds" />
+                            <field name="wind_speed" />
+                            <field name="weather_description" />
                         </tree>
-
+                    </field>
+                    <br/>
+					<h3>Dự báo theo ngày</h3>
+                    <field name="daily_ids" >
+                        <tree>
+                            <field name="time_show" />
+                            <field name="temp" />
+                            <field name="feels_like_day" />
+                            <field name="temp_min" />
+                            <field name="temp_max" />
+                            <field name="pop" />
+                            <field name="humidity" />
+                            <field name="clouds" />
+                            <field name="wind_speed" />
+                            <field name="uvi" />
+                            <field name="weather_description" />
+                           
+                        </tree>
                     </field>
 
           	 	</group>
-          	 	<table style="width:100%">
-  <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Age</th>
-  </tr>
-  <tr>
-    <td>Jill</td>
-    <td>Smith</td>
-    <td>50</td>
-  </tr>
-  <tr>
-    <td>Eve</td>
-    <td>Jackson</td>
-    <td>94</td>
-  </tr>
-  <tr>
-    <td>John</td>
-    <td>Doe</td>
-    <td>80</td>
-  </tr>
-</table>
 
           	 </sheet>
           </form>
@@ -138,46 +136,14 @@
 
     <!-- actions opening views on models -->
     <record id="weather_city_act" model="ir.actions.act_window">
-      <field name="name">weather forecast</field>
-      <field name="res_model">weather.forecast</field>
-      <field name="view_mode">tree,form,kanban</field>
+      	<field name="name">Thời tiết hôm nay</field>
+      	<field name="res_model">weather.forecast</field>
+      	<field name="view_mode">tree,form,kanban</field>
     </record>
 
-	 <menuitem id="weather_menu_root" name="Weather App" />
-	 <menuitem id="weather_city_menu" name="Weather City" action="weather_city_act" parent="weather_menu_root" />
+	<menuitem id="weather_menu_root" name="Weather App" />
+	<menuitem id="weather_city_menu" name="Weather City" action="weather_city_act" parent="weather_menu_root" />
 
 
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="weather.action_server">
-      <field name="name">weather server</field>
-      <field name="model_id" ref="model_weather_weather"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
-
-    <!-- Top menu item -->
-<!--
-    <menuitem name="weather" id="weather.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="weather.menu_1" parent="weather.menu_root"/>
-    <menuitem name="Menu 2" id="weather.menu_2" parent="weather.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="weather.menu_1_list" parent="weather.menu_1"
-              action="weather.action_window"/>
-    <menuitem name="Server to list" id="weather" parent="weather.menu_2"
-              action="weather.action_server"/>
--->
   </data>
 </odoo>
