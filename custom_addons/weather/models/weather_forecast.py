@@ -4,7 +4,6 @@ from odoo import models, fields, api
 from urllib.request import urlopen
 import json, time
 from dateutil import tz
-
 from datetime import datetime
 
 
@@ -168,59 +167,88 @@ class WeatherForecast(models.Model):
         self._update_data_tomorrow()
         
         print('set to tomorrow')
-        
-   
 
-    
+    current_json = fields.Text()
     def _update_data_tomorrow(self):
+        i = 0 # todo: delete
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree'
         cities = self.search([])
-        
+
+        #luu lai data hien tai de co the quay lai truoc khi chuyen
         for city in cities:
+           city.current_json = str(city.get_current_data()).replace("'", '"')
+
+
+        for city in cities:
+            i += 1
             data_tomorrow = city.daily_ids[1].get_data_one_day()
             city['temp'] = data_tomorrow['temp']
             city['humidity'] = data_tomorrow['humidity']
             city['clouds'] = data_tomorrow['clouds']
-            city['pop'] = data_tomorrow['pop']
+            city['current_pop'] = data_tomorrow['pop']
             city['visibility'] = 'Null'
             city['wind_speed'] = data_tomorrow['wind_speed']
             city['wind_deg'] = data_tomorrow['wind_deg']
             city['weather_description'] = data_tomorrow['weather_description']
             city['pressure'] = data_tomorrow['pressure']
-            
-            city['sunset_show'] = data_tomorrow['sunset_show'] # co the khong can thiet 
-            city['sunrise_show'] = data_tomorrowp['sunrise_show'] # co the khong can thiet
-            
+
+            city['sunset_show'] = data_tomorrow['sunset_show'] # co the khong can thiet
+            city['sunrise_show'] = data_tomorrow['sunrise_show'] # co the khong can thiet
+
+            if i == 3: break #todo delete
+
+
     
-    current_json = fields.Text()
+
     def get_current_data(self):
         r = {}
         r['temp'] = self.temp
         r['humidity'] = self.humidity
         r['clouds'] = self.clouds
-        r['pop'] = self.pop
+        r['current_pop'] = self.current_pop
         r['visibility'] = self.visibility
         r['wind_speed'] = self.wind_speed
         r['wind_deg'] = self.wind_deg
         r['weather_description'] = self.weather_description
         r['pressure'] = self.pressure
         r['sunset_show'] = self.sunset_show
-        r['sunrise_show'] = self.sunrise_show  
-    
+        r['sunrise_show'] = self.sunrise_show
+        return r
     
     @api.model
     def set_forecast_to_current(self):
         self.set_act_window_label('Thời tiết hôm nay')
         self._update_data_current()
         
-        print('set to tomorow')
+        print('set to cureent')
         
     def _update_data_current(self):
+        # todo: xử lý trường hợp đang ở hiện tại nhưng lại click vào thời tiết hiện tại
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree,form,kanban'
 
-    
+        i = 0 #todo delete
+        cities = self.search([])
+        for city in cities:
+            i += 1 #todo delete
+            # print(city.current_json, type(city.current_json))
+            data = json.loads(city.current_json)
+            # print('ff',data, type(data))
+
+            city['temp'] = data['temp']
+            city['humidity'] = data['humidity']
+            city['clouds'] = data['clouds']
+            city['current_pop'] = data['current_pop']
+            city['visibility'] = data['visibility']
+            city['wind_speed'] = data['wind_speed']
+            city['wind_deg'] = data['wind_deg']
+            city['weather_description'] = data['weather_description']
+            city['pressure'] = data['pressure']
+            city['sunset_show'] = data['sunset_show']  # co the khong can thiet
+            city['sunrise_show'] = data['sunrise_show'] #
+
+            if i == 3: break #todo delete
     
     
     def unlink(self):
