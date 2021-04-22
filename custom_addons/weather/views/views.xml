@@ -1,149 +1,166 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-    <record id="weather_list" model="ir.ui.view">
-      <field name="name">weather list</field>
-      <field name="model">weather.forecast</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="temp"/>
-          <field name="humidity"/>
-          <field name="clouds" />
-          <field name="current_pop" />
-          <field name="visibility"/>
-          <field name="wind_speed"/>
-          <field name="wind_deg" />
-          <field name="weather_description" />
-
-        </tree>
-      </field>
-    </record>
+      <record id="weather_list" model="ir.ui.view">
+          <field name="name">weather list</field>
+          <field name="model">weather.forecast</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="name"/>
+                  <field name="temp"/>
+                  <field name="humidity"/>
+                  <field name="clouds"/>
+                  <field name="pop"/>
+                  <field name="visibility"/>
+                  <field name="wind_speed"/>
+                  <field name="wind_deg"/>
+                  <field name="weather_description"/>
+              </tree>
+          </field>
+      </record>
 
     <!-- From View -->
-    <record id="weather_from" model="ir.ui.view">
-       <field name="name">weather form</field>
-       <field name="model">weather.forecast</field>
-       <field name="arch" type="xml">
-          <form>
-          	 <sheet>
-          	 	<div>
-          	 		<h1><field name="name"/> | <field name="temp"/></h1>
+      <record id="weather_from" model="ir.ui.view">
+          <field name="name">weather form</field>
+          <field name="model">weather.forecast</field>
+          <field name="arch" type="xml">
+              <form>
+                  <sheet>
+                      <div>
+                          <h1><field name="name"/> | <field name="temp"/></h1>
+                          <field name="url_icon" invisible="1"/>
+                          <img t-att-src="record.url_icon.value" alt=""/>
+                          <span style="font-size:20px">
+                              <field name="weather_description"/>
+                          </span>
 
-          	 		<field name="url_icon"  invisible="1"/>
-      				<img t-att-src="record.url_icon.value"  alt="" />
-          	 		<span style="font-size:20px"><field name="weather_description" /></span>
+                      </div>
+                      <group>
+                          <group>
+                              <field name="pop"/>
+                              <field name="clouds"/>
+                              <field name="humidity"/>
+                              <field name="visibility"/>
+                              <field name="wind_speed"/>
+                              <field name="wind_deg"/>
+                              <field name="pressure"/>
+                          </group>
 
-          	 	</div>
-          	 	<group>
-          	 		<group>
-          	 			<field name="current_pop" />
-          	 			<field name="clouds" />
-           				<field name="humidity"/>
-           				<field name="visibility"/>
-           				<field name="wind_speed"/>
-           				<field name="wind_deg" />
-           				<field name="pressure" />
-          	 		</group>
+                          <group>
+                              <field name="sunrise_show"/>
+                              <field name="sunset_show"/>
+                              <field name="dt"/>
+                          </group>
 
-          	 		<group>
-          	 			<field name="sunrise_show" />
-          	 			<field name="sunset_show" />
-          	 			<field name="dt" />
-          	 		</group>
+                          <br/>
+                          <h3>Hourly forecast</h3>
+                          <field name="hourly_ids">
+                              <tree>
+                                  <field name="time_show"/>
+                                  <field name="temp"/>
+                                  <field name="pop"/>
+                                  <field name="humidity"/>
+                                  <field name="clouds"/>
+                                  <field name="wind_speed"/>
+                                  <field name="weather_description"/>
+                              </tree>
+                          </field>
+                          <br/>
 
-          	 	
-					<br/>
-					<h3>Dự báo theo giờ</h3>
-                    <field name="hourly_ids" >
-                        <tree>
-                            <field name="time_show" />
-                            <field name="temp" />
-                            <field name="pop" />
-                            <field name="humidity" />
-                            <field name="clouds" />
-                            <field name="wind_speed" />
-                            <field name="weather_description" />
-                        </tree>
-                    </field>
-                    <br/>
-					<h3>Dự báo theo ngày</h3>
-                    <field name="daily_ids" >
-                        <tree>
-                            <field name="time_show" />
-                            <field name="temp" />
-                            <field name="feels_like_day" />
-                            <field name="temp_min" />
-                            <field name="temp_max" />
-                            <field name="pop" />
-                            <field name="humidity" />
-                            <field name="clouds" />
-                            <field name="wind_speed" />
-                            <field name="uvi" />
-                            <field name="weather_description" />
-                           
-                        </tree>
-                    </field>
+                          <h3>Daily forecast</h3>
+                          <field name="daily_ids">
+                              <tree>
+                                  <field name="time_show"/>
+                                  <field name="temp"/>
+                                  <field name="feels_like_day"/>
+                                  <field name="temp_min"/>
+                                  <field name="temp_max"/>
+                                  <field name="pop"/>
+                                  <field name="humidity"/>
+                                  <field name="clouds"/>
+                                  <field name="wind_speed"/>
+                                  <field name="uvi"/>
+                                  <field name="weather_description"/>
 
-          	 	</group>
-
-          	 </sheet>
-          </form>
-       </field>
-    </record>
-
-
-    <!--Kaban view-->
-    <record id="weather_kanban" model="ir.ui.view">
-      <field name="name">weather kanban</field>
-      <field name="model">weather.forecast</field>
-      <field name="arch" type="xml">
-        <kanban>
-           <templates>
-          		<t t-name="kanban-box">
-          			<div>
-          				<h3><field name="name"/></h3>
-          				<h4><field name="weather_description"/></h4> <br/>
-
-          				<b>Nhiệt độ: <span style="color:red"><field name="temp"/></span> </b> <br/>
-          				<b>Độ ẩm: <span style="color:blue"><field name="humidity"/></span> </b> <br/>
-          				<b>Mây: <field name="clouds"/> </b> <br/>
-          				<b>Khả năng mưa: <field name="current_pop" /></b> <br/> <br/>
-
-<!--           				<div style="background-color: #666666; height:1px"></div> -->
+                              </tree>
+                          </field>
+                      </group>
+                  </sheet>
+              </form>
+          </field>
+      </record>
 
 
+      <!--Kaban view-->
+      <record id="weather_kanban" model="ir.ui.view">
+          <field name="name">weather kanban</field>
+          <field name="model">weather.forecast</field>
+          <field name="arch" type="xml">
+              <kanban>
+                  <templates>
+                      <t t-name="kanban-box">
+                          <div>
+                              <h3><field name="name"/></h3>
+                              <h4><field name="weather_description"/></h4>
+                              <br/>
 
-          				<b>Tầm nhìn: <field name="visibility"/> </b> <br/>
-          				<b>Tốc độ gió: <field name="wind_speed"/> </b> <br/>
-<!--           				<b>Hướng gió: <field name="wind_deg"/> </b> <br/> -->
+                              <b>Temp: <span style="color:red"><field name="temp"/></span></b> <br/>
+                              <b>Humidity: <span style="color:blue"><field name="humidity"/></span></b> <br/>
+                              <b>Clouds: <field name="clouds"/></b> <br/>
+                              <b>Pop: <field name="pop"/></b> <br/>
+                              <br/>
+
+                              <b>Visibility: <field name="visibility"/></b> <br/>
+                              <b>Wind speed: <field name="wind_speed"/></b> <br/>
+
+                              <field name="url_icon" invisible="1"/>
+                              <img t-att-src="record.url_icon.value" alt=""/>
+                          </div>
+                      </t>
+                  </templates>
+              </kanban>
+          </field>
+      </record>
 
 
+      <!-- actions opening views on models -->
+      <record id="weather_city_act" model="ir.actions.act_window">
+          <field name="name">Current Weather</field>
+          <field name="res_model">weather.forecast</field>
+          <field name="view_mode">tree,form,kanban</field>
+      </record>
 
+      <menuitem id="weather_menu_root" name="Weather App"/>
 
-						<field name="url_icon"  invisible="1"/>
-      					<img t-att-src="record.url_icon.value"  alt="" />
+      <!--todo: Reload page-->
+      <record id="weather_tomorrow_act_server" model="ir.actions.server">
+          <field name="name">Weather Tomorrow act server</field>
+          <field name="model_id" ref="model_weather_forecast"/>
+          <field name="state">code</field>
+          <field name="code">action = model.set_forecast_to_tomorrow()</field>
+      </record>
+      <record id="weather_current_act_server" model="ir.actions.server">
+          <field name="name">Weather Current action server</field>
+          <field name="model_id" ref="model_weather_forecast"/>
+          <field name="state">code</field>
+          <field name="code">
+              action = model.set_forecast_to_current()
+          </field>
+      </record>
+      <record id="weather_update_act_server" model="ir.actions.server">
+          <field name="name">Weather Update action server</field>
+          <field name="model_id" ref="model_weather_forecast"/>
+          <field name="state">code</field>
+          <field name="code">action = model.update_data_weather()</field>
+      </record>
 
-
-          			</div>
-          		</t>
-           </templates>
-        </kanban>
-      </field>
-    </record>
-
-
-
-    <!-- actions opening views on models -->
-    <record id="weather_city_act" model="ir.actions.act_window">
-      	<field name="name">Thời tiết hôm nay</field>
-      	<field name="res_model">weather.forecast</field>
-      	<field name="view_mode">tree,form,kanban</field>
-    </record>
-
-	<menuitem id="weather_menu_root" name="Weather App" />
-	<menuitem id="weather_city_menu" name="Weather City" action="weather_city_act" parent="weather_menu_root" />
-
+      <menuitem id="weather_menu_1" name="Menu" parent="weather_menu_root" action="weather_city_act"/>
+      <menuitem id="weather_tomorrow_id" name="Tomorrow's Weather" parent="weather_menu_1"
+                action="weather_tomorrow_act_server"/>
+      <menuitem id="weather_current_id" name="Current Weather" parent="weather_menu_1"
+                action="weather_current_act_server"/>
+      <menuitem id="weather_update_id" name="Update Weather" parent="weather_menu_1"
+                action="weather_update_act_server"/>
 
   </data>
 </odoo>

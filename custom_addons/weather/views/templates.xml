@@ -2,7 +2,7 @@
 <odoo>
     <template id="assets_backend" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/weather/static/src/js/btn_test_123.js"></script> <!-- khai báo hiện thực action cho button mới vừa làm @ javascript -->
+            <script type="text/javascript" src="/weather/static/src/js/btn_test_123.js"/>
         </xpath>
     </template>    
 </odoo>

@@ -95,7 +95,7 @@ Tính năng chính
         'demo/demo.xml',
     ],
     'qweb': [
-        'static/src/xml/btn_test_123.xml', # <-- khai bao thua ke qweb vua hien thuc
+        'static/src/xml/btn_test_123.xml',
     ],
     'images' : [
     	# 'static/description/main_screenshot.png'
