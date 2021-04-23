@@ -1,0 +1,19 @@
+<odoo>
+    <record id="group_weather_user" model="res.groups">
+        <field name="name">Group Wether User</field>
+    </record>
+
+<!--    <record id="rule_use_weather_app" model="ir.rule">-->
+<!--        <field name="name">Rule Use Weather App</field>-->
+<!--        <field name="model_id" ref="model_weather_forecast"/>-->
+<!--        <field name="groups" eval="[(4, ref('group_weather_user'))]"/>-->
+<!--        <field name="perm_read" eval="1"/>-->
+<!--        <field name="perm_write" eval="1"/>-->
+<!--        <field name="perm_create" eval="1"/>-->
+<!--        <field name="perm_unlink" eval="1"/>-->
+<!--        <field name="domain_force">[('user_id', '=', user.id)]</field>-->
+<!--    </record>-->
+
+
+
+</odoo>

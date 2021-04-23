@@ -76,10 +76,11 @@ Tính năng chính
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','mail'],
+    'depends': ['base', 'mail'],
 
     # always loaded
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
         'datas/data_daily.xml',
@@ -87,19 +88,19 @@ Tính năng chính
         'views/templates.xml',
         'datas/data_city_vietnam.xml',
         'datas/cron_update_weather.xml',
-        'views/templates.xml'
-
+        'views/location_view.xml',
+        # 'views/templates.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
     'qweb': [
-        'static/src/xml/btn_test_123.xml',
+        # 'static/src/xml/btn_test_123.xml',
     ],
-    'images' : [
-    	# 'static/description/main_screenshot.png'
-    	],
+    'images': [
+        # 'static/description/main_screenshot.png'
+    ],
     'installable': True,
     'application': True,
     'auto_install': False,

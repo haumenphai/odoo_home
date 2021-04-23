@@ -132,7 +132,6 @@
 
       <menuitem id="weather_menu_root" name="Weather App"/>
 
-      <!--todo: Reload page-->
       <record id="weather_tomorrow_act_server" model="ir.actions.server">
           <field name="name">Weather Tomorrow act server</field>
           <field name="model_id" ref="model_weather_forecast"/>
@@ -161,6 +160,25 @@
                 action="weather_current_act_server"/>
       <menuitem id="weather_update_id" name="Update Weather" parent="weather_menu_1"
                 action="weather_update_act_server"/>
+
+
+      <record id="weather_temp_F_act_server" model="ir.actions.server">
+          <field name="name">Weather temp F action server</field>
+          <field name="model_id" ref="model_weather_forecast"/>
+          <field name="state">code</field>
+          <field name="code">action = model.display_temp_F()</field>
+      </record>
+      <record id="weather_temp_C_act_server" model="ir.actions.server">
+          <field name="name">Weather temp C action server</field>
+          <field name="model_id" ref="model_weather_forecast"/>
+          <field name="state">code</field>
+          <field name="code">action = model.display_temp_C()</field>
+      </record>
+
+      <menuitem id="weather_unit" name="Units" parent="weather_menu_root"  />
+      <menuitem id="weather_unit_temp_C" name="Temp C" parent="weather_unit"  action="weather_temp_C_act_server"/>
+      <menuitem id="weather_unit_temp_F" name="Temp F" parent="weather_unit"  action="weather_temp_F_act_server"/>
+
 
   </data>
 </odoo>
