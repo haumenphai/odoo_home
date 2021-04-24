@@ -1,0 +1,34 @@
+<odoo noupdate="1">
+
+    <record id="city69" model="weather.city">
+        <field name="name">Hải Phòng</field>
+        <field name="lat">20.855917</field>
+        <field name="lon">106.694626</field>
+    </record>
+
+
+    <record id="city70" model="weather.city">
+        <field name="name">Hà Nội</field>
+        <field name="lat">21.020496</field>
+        <field name="lon">105.833263</field>
+    </record>
+
+
+    <record id="city71" model="weather.city">
+        <field name="name">TP HCM</field>
+        <field name="lat">10.817871</field>
+        <field name="lon">106.630455</field>
+    </record>
+
+
+    <record id="city1" model="weather.city">
+        <field name="name">An Giang</field>
+        <field name="lat">10.505692</field>
+        <field name="lon">105.187835</field>
+    </record>
+
+
+
+
+
+</odoo>

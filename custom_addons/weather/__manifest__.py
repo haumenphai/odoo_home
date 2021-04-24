@@ -89,6 +89,7 @@ Tính năng chính
         'datas/data_city_vietnam.xml',
         'datas/cron_update_weather.xml',
         'views/location_view.xml',
+        'datas/data_cities.xml'
         # 'views/templates.xml'
     ],
     # only loaded in demonstration mode

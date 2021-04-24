@@ -1,7 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-w0,weather0,model_weather_weather,group_weather_user,1,1,1,1
-w1,weather1,model_weather_forecast,group_weather_user,1,1,1,1
-w2,weather2,model_weather_hourly,group_weather_user,1,1,1,1
-w3,weather3,model_weather_daily,group_weather_user,1,1,1,1
+w0,weather0,model_weather_weather,group_weather_user,1,1,1,0
+w1,weather1,model_weather_forecast,group_weather_user,1,1,1,0
+w2,weather2,model_weather_hourly,group_weather_user,1,1,1,0
+w3,weather3,model_weather_daily,group_weather_user,1,1,1,0
 w4,weather4,model_weather_location,group_weather_user,1,1,1,1
 
