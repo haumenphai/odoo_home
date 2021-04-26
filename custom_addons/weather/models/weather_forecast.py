@@ -8,26 +8,27 @@ from ..tools import time_util
 apikey1 = '3e65cba6de46a1e4074e68215ed5938a'
 apikey2 = 'dfc2d4e0b00c6903afcfdfcc3b059752'
 
+# TODO: Đã thêm 2 trường temp_int vàtemp_float, check lại khi chuyển đổi lại sang ngày mai và hiện tại
+# TODO: add search view.
 
 class WeatherForecast(models.Model):
     _name = 'weather.forecast'
-    _description = ''
+    _description = 'Current Forecast'
     _inherit = ['weather.api', 'weather.weather']
 
-    name = fields.Char('Location')
-    lat = fields.Float()
-    lon = fields.Float()
+    name = fields.Char(string='Location', required=True)
+    lat = fields.Float(string='Latitude', required=True)
+    lon = fields.Float(string='Longitude', required=True)
 
-    dt = fields.Datetime('Updated at')
-    visibility = fields.Char()
-    sunrise_show = fields.Char('Sunrise')
-    sunset_show = fields.Char('Sunset')
-    timezone = fields.Char()
-    hourly_ids = fields.Many2many('weather.hourly')
-    daily_ids = fields.Many2many('weather.daily')
-    current_json = fields.Text()
+    dt = fields.Datetime(string='Updated at')
+    visibility = fields.Char(string='Visibility')
+    sunrise_show = fields.Char(string='Sunrise')
+    sunset_show = fields.Char(string='Sunset')
+    timezone = fields.Char(string='Timezone')
+    hourly_ids = fields.Many2many('weather.hourly', string='Hourly Forecast')
+    daily_ids = fields.Many2many('weather.daily', string='Daily Forecast')
+    current_json = fields.Text(string='Current Json')
 
-    user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
 
     @api.depends('weather_icon')
     def _compute_url_icon(self):
@@ -40,6 +41,7 @@ class WeatherForecast(models.Model):
         """ Update weather for all location
             :return: None
         """
+        self = self.sudo(True)
         i = 0
         cities = self.search([])
         for city in cities:
@@ -54,6 +56,8 @@ class WeatherForecast(models.Model):
             weather = data['current']['weather'][0]
             city.write({
                 'temp': current['temp'],
+                'temp_int': current['temp_int'],
+                'temp_float': current['temp_float'],
                 'feels_like': current['feels_like'],
                 'humidity': current['humidity'],
                 'pressure': current['pressure'],
@@ -85,7 +89,7 @@ class WeatherForecast(models.Model):
                 day.update_data_daily(day_list[j], data['timezone'])
                 j += 1
 
-            if i == 3: break  # todo: delete
+            # if i == 3: break  # todo: delete
         self._save_current_weather(cities)
         self._set_act_window_label(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
         return self._reload_page(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
@@ -96,8 +100,11 @@ class WeatherForecast(models.Model):
             :return dict: (result) contains the converted values
         """
         result = data.copy()
+
         print('result: ', result)
         current = result['current']
+        current['temp_int'] = round(current['temp'])
+        current['temp_float'] = current['temp']
         current['dt'] = time_util.unix2datetime(current['dt'])
         current['temp'] = f"{round(current['temp'])} ºC"
         current['feels_like'] = f"{round(current['feels_like'])} ºC"
@@ -137,6 +144,7 @@ class WeatherForecast(models.Model):
     def set_forecast_to_tomorrow(self):
         """ Convert the weather data currently displayed in the tree view to tomorrow's weather
         """
+        self = self.sudo(True)
         i = 0  # todo: delete
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree'
@@ -156,7 +164,7 @@ class WeatherForecast(models.Model):
             city['pressure'] = data_tomorrow['pressure']
             city['sunset_show'] = data_tomorrow['sunset_show']  # co the khong can thiet
             city['sunrise_show'] = data_tomorrow['sunrise_show']  # co the khong can thiet
-            if i == 3: break  # todo delete
+            # if i == 3: break  # todo delete
         print('set to tomorrow')
         self._set_act_window_label("Tomorrow's weather")
         return self._reload_page("Tomorrow's weather", "tree")
@@ -164,6 +172,7 @@ class WeatherForecast(models.Model):
     def set_forecast_to_current(self):
         """ Convert the time data currently displayed in the tree view to the current weather
         """
+        self = self.sudo(True)
         cities = self.search([])
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree,form,kanban'
@@ -184,12 +193,12 @@ class WeatherForecast(models.Model):
             city['sunset_show'] = data['sunset_show']  # co the khong can thiet vì nó không hiển thị trên tree view
             city['sunrise_show'] = data['sunrise_show']  #
 
-            if i == 3: break  # todo delete
+            # if i == 3: break  # todo delete
         print('set to Current weather')
         self._set_act_window_label(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
         return self._reload_page(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
 
-    def _reload_page(self, name, view_mode='tree,form,kanban'):
+    def _reload_page(self, name, view_mode='tree,form,kanban,graph'):
         return {
             'name': name,
             'type': 'ir.actions.act_window',
@@ -201,7 +210,8 @@ class WeatherForecast(models.Model):
     def _set_act_window_label(self, label):
         """ Set name for Window Action: weather forecast
         """
-        act_window = self.env.ref('weather.weather_city_act')
+        sudo = self.sudo(True)
+        act_window = sudo.env.ref('weather.weather_city_act')
         act_window.name = label
 
     def display_temp_C(self):

@@ -3,30 +3,31 @@ from odoo import models, fields, api
 
 from ..tools import time_util
 
+
 class WeatherDaily(models.Model):
     _name = 'weather.daily'
-    _description = 'weather daily'
+    _description = 'Daily forecast'
     _inherit = ['weather.weather']
     _rec_name = 'dt'
 
-    sunrise_show = fields.Char('Sunrise')
-    sunset_show = fields.Char('Sunset')
-    moonrise_show = fields.Char('Moonrise')
-    moonset_show = fields.Char('Moonset')
-    time_show = fields.Char('Day', compute='_compute_time_show')
-    timezone = fields.Char()
+    sunrise_show = fields.Char(string='Sunrise')
+    sunset_show = fields.Char(string='Sunset')
+    moonrise_show = fields.Char(string='Moonrise')
+    moonset_show = fields.Char(string='Moonset')
+    time_show = fields.Char(string='Day', compute='_compute_time_show')
+    timezone = fields.Char(string='Timezone')
 
-    temp_min = fields.Char()
-    temp_max = fields.Char()
-    temp_night = fields.Char()
-    temp_eve = fields.Char()
-    temp_morning = fields.Char()
+    temp_min = fields.Char(string='Temp Min')
+    temp_max = fields.Char(string='Temp Max')
+    temp_night = fields.Char(string='Temp Night')
+    temp_eve = fields.Char(string='Temp Evening')
+    temp_morning = fields.Char(string='Temp Morning')
 
-    feels_like_day = fields.Char('Feels Like')
-    feels_like_night = fields.Char()
-    feels_like_eve = fields.Char()
-    feels_like_morning = fields.Char()
-    uvi = fields.Char()
+    feels_like_day = fields.Char(string='Feels Like')
+    feels_like_night = fields.Char(string='Feels Like Night')
+    feels_like_eve = fields.Char(string='Feels Like Evening')
+    feels_like_morning = fields.Char(string='Feels Like Morning')
+    uvi = fields.Char(string='Uvi')
 
     def get_data_one_day(self):
         return {

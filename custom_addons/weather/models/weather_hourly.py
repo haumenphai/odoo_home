@@ -6,10 +6,10 @@ from odoo import models, fields, api
 class WeatherHourly(models.Model):
     _name = 'weather.hourly'
     _inherit = ['weather.weather']
-    _description = ''
+    _description = 'Hourly Forecast'
 
-    time_show = fields.Char('Hour', compute='_compute_time_show')
-    timezone = fields.Char()
+    time_show = fields.Char(string='Hour', compute='_compute_time_show')
+    timezone = fields.Char(string='Timezone')
 
     @api.depends('dt')
     def _compute_time_show(self):
@@ -31,6 +31,7 @@ class WeatherHourly(models.Model):
         result['wind_speed'] = f"{round(result['wind_speed'], 2)} m/s"
         result['wind_deg'] = f"{round(result['wind_deg'])} º"
         result['pop'] = f"{round(result['pop'] * 100)} %"
+        result['uvi'] = f"{result['uvi']}"
         return result
 
     def update_hourly(self, data, timezone):
@@ -39,6 +40,7 @@ class WeatherHourly(models.Model):
         self.write({
             'dt': data1['dt'],
             'temp': data1['temp'],
+            'feels_like': data1['feels_like'],
             'pop': data1['pop'],
             'humidity': data1['humidity'],
             'clouds': data1['clouds'],
@@ -47,5 +49,7 @@ class WeatherHourly(models.Model):
             'weather_description': data1['weather'][0]['description'],
             'weather_main': data1['weather'][0]['main'],
             'weather_icon': data1['weather'][0]['icon'],
-            'timezone': timezone
+            'timezone': timezone,
+            'pressure': data1['pressure'],
+            'uvi': data1['uvi']
         })

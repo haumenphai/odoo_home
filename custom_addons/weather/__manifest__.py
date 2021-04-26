@@ -88,13 +88,8 @@ Tính năng chính
         'views/templates.xml',
         'datas/data_city_vietnam.xml',
         'datas/cron_update_weather.xml',
-        'views/location_view.xml',
-        'datas/data_cities.xml'
-        # 'views/templates.xml'
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
+        'views/custom_location_view.xml',
+        'views/view_hourly.xml'
     ],
     'qweb': [
         # 'static/src/xml/btn_test_123.xml',

@@ -122,12 +122,23 @@
           </field>
       </record>
 
+      <record id="weather_graph" model="ir.ui.view">
+          <field name="name">weather graph</field>
+          <field name="model">weather.forecast</field>
+          <field name="arch" type="xml">
+              <graph>
+                  <field name="name"/>
+                  <field name="temp_int" type="mesure" group="True" />
+              </graph>
+          </field>
+      </record>
+
 
       <!-- actions opening views on models -->
       <record id="weather_city_act" model="ir.actions.act_window">
           <field name="name">Current Weather</field>
           <field name="res_model">weather.forecast</field>
-          <field name="view_mode">tree,form,kanban</field>
+          <field name="view_mode">tree,form,kanban,graph</field>
       </record>
 
       <menuitem id="weather_menu_root" name="Weather App"/>
@@ -153,7 +164,7 @@
           <field name="code">action = model.update_data_weather()</field>
       </record>
 
-      <menuitem id="weather_menu_1" name="Menu" parent="weather_menu_root" action="weather_city_act"/>
+      <menuitem id="weather_menu_1" name="All Location" parent="weather_menu_root" action="weather_city_act"/>
       <menuitem id="weather_tomorrow_id" name="Tomorrow's Weather" parent="weather_menu_1"
                 action="weather_tomorrow_act_server"/>
       <menuitem id="weather_current_id" name="Current Weather" parent="weather_menu_1"
