@@ -10,24 +10,24 @@ class WeatherDaily(models.Model):
     _inherit = ['weather.weather']
     _rec_name = 'dt'
 
-    sunrise_show = fields.Char(string='Sunrise')
-    sunset_show = fields.Char(string='Sunset')
-    moonrise_show = fields.Char(string='Moonrise')
-    moonset_show = fields.Char(string='Moonset')
+    sunrise_show = fields.Char(string='Sunrise', readonly=True)
+    sunset_show = fields.Char(string='Sunset', readonly=True)
+    moonrise_show = fields.Char(string='Moonrise', readonly=True)
+    moonset_show = fields.Char(string='Moonset', readonly=True)
     time_show = fields.Char(string='Day', compute='_compute_time_show')
-    timezone = fields.Char(string='Timezone')
+    timezone = fields.Char(string='Timezone', readonly=True)
 
-    temp_min = fields.Char(string='Temp Min')
-    temp_max = fields.Char(string='Temp Max')
-    temp_night = fields.Char(string='Temp Night')
-    temp_eve = fields.Char(string='Temp Evening')
-    temp_morning = fields.Char(string='Temp Morning')
+    temp_min = fields.Char(string='Temp Min', readonly=True)
+    temp_max = fields.Char(string='Temp Max', readonly=True)
+    temp_night = fields.Char(string='Temp Night', readonly=True)
+    temp_eve = fields.Char(string='Temp Evening', readonly=True)
+    temp_morning = fields.Char(string='Temp Morning', readonly=True)
 
-    feels_like_day = fields.Char(string='Feels Like')
-    feels_like_night = fields.Char(string='Feels Like Night')
-    feels_like_eve = fields.Char(string='Feels Like Evening')
-    feels_like_morning = fields.Char(string='Feels Like Morning')
-    uvi = fields.Char(string='Uvi')
+    feels_like_day = fields.Char(string='Feels Like', readonly=True)
+    feels_like_night = fields.Char(string='Feels Like Night', readonly=True)
+    feels_like_eve = fields.Char(string='Feels Like Evening', readonly=True)
+    feels_like_morning = fields.Char(string='Feels Like Morning', readonly=True)
+    uvi = fields.Char(string='Uvi', readonly=True)
 
     def get_data_one_day(self):
         return {
@@ -47,15 +47,14 @@ class WeatherDaily(models.Model):
     @api.depends('dt')
     def _compute_time_show(self):
         for r in self:
-            to_zone = tz.gettz(r.timezone)
-            utc = fields.Datetime.to_datetime(r.dt)
-            timel = utc.astimezone(to_zone)
-            r.time_show = timel.strftime('%d/%m')  # %a: week
+            if r.timezone and r.dt:
+                to_zone = tz.gettz(r.timezone)
+                utc = fields.Datetime.to_datetime(r.dt)
+                timel = utc.astimezone(to_zone)
+                r.time_show = timel.strftime('%d/%m')  # %a: week
+            else:
+                r.time_show = 'null'
 
-    @api.depends('weather_icon')
-    def _get_url_icon(self):
-        for r in self:
-            r.url_icon = f'http://openweathermap.org/img/wn/{r.weather_icon}@2x.png'
 
     def update_data_daily(self, data_day, timezone):
         data = self._convert_data(data_day, timezone)
@@ -104,7 +103,6 @@ class WeatherDaily(models.Model):
         r['moonset_show'] = time_util.convert_datetime(moonset, tz).strftime('%H:%M')
 
         temp = r['temp']
-        temp['day'] = f"{round(temp['day'])} ºC"
         temp['min'] = f"{round(temp['min'])} ºC"
         temp['max'] = f"{round(temp['max'])} ºC"
         temp['night'] = f"{round(temp['night'])} ºC"

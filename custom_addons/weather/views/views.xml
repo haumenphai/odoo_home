@@ -7,7 +7,7 @@
           <field name="arch" type="xml">
               <tree>
                   <field name="name"/>
-                  <field name="temp"/>
+                  <field name="temp_show"/>
                   <field name="humidity"/>
                   <field name="clouds"/>
                   <field name="pop"/>
@@ -20,73 +20,80 @@
       </record>
 
     <!-- From View -->
-      <record id="weather_from" model="ir.ui.view">
+      <record id="weather_form" model="ir.ui.view">
           <field name="name">weather form</field>
           <field name="model">weather.forecast</field>
           <field name="arch" type="xml">
-              <form>
-                  <sheet>
-                      <div>
-                          <h1><field name="name"/> | <field name="temp"/></h1>
-                          <field name="url_icon" invisible="1"/>
-                          <img t-att-src="record.url_icon.value" alt=""/>
-                          <span style="font-size:20px">
-                              <field name="weather_description"/>
-                          </span>
+               <form>
+                <sheet>
+                    <div>
+                        <h1><field name="name" placeholder="Enter location name"/> | <field name="temp_show"/></h1>
+                        <span style="font-size:20px"><field name="weather_description"/></span>
+                    </div>
 
-                      </div>
-                      <group>
-                          <group>
-                              <field name="pop"/>
-                              <field name="clouds"/>
-                              <field name="humidity"/>
-                              <field name="visibility"/>
-                              <field name="wind_speed"/>
-                              <field name="wind_deg"/>
-                              <field name="pressure"/>
-                          </group>
+                    <group>
+                        <group>
+                        </group>
 
-                          <group>
-                              <field name="sunrise_show"/>
-                              <field name="sunset_show"/>
-                              <field name="dt"/>
-                          </group>
+                        <group>
+                            <field name="lat" groups="weather.group_weather_admin"/>
+                            <field name="lon" groups="weather.group_weather_admin"/>
+                        </group>
+                    </group>
 
-                          <br/>
-                          <h3>Hourly forecast</h3>
-                          <field name="hourly_ids">
-                              <tree>
-                                  <field name="time_show"/>
-                                  <field name="temp"/>
-                                  <field name="pop"/>
-                                  <field name="humidity"/>
-                                  <field name="clouds"/>
-                                  <field name="wind_speed"/>
-                                  <field name="weather_description"/>
-                              </tree>
-                          </field>
-                          <br/>
+                    <group>
+                        <group>
+                            <field name="temp_show"/>
+                            <field name="pop"/>
+                            <field name="clouds"/>
+                            <field name="humidity"/>
+                            <field name="visibility"/>
+                            <field name="wind_speed"/>
+                            <field name="wind_deg"/>
+                            <field name="pressure"/>
+                        </group>
+                        <group>
+                            <field name="feels_like"/>
+                            <field name="sunrise_show"/>
+                            <field name="sunset_show"/>
+                            <field name="dt_show"/>
+                        </group>
+                    </group>
 
-                          <h3>Daily forecast</h3>
-                          <field name="daily_ids">
-                              <tree>
-                                  <field name="time_show"/>
-                                  <field name="temp"/>
-                                  <field name="feels_like_day"/>
-                                  <field name="temp_min"/>
-                                  <field name="temp_max"/>
-                                  <field name="pop"/>
-                                  <field name="humidity"/>
-                                  <field name="clouds"/>
-                                  <field name="wind_speed"/>
-                                  <field name="uvi"/>
-                                  <field name="weather_description"/>
+                    <br/>
+                    <h3>Hourly forecast</h3>
+                    <field name="hourly_ids">
+                        <tree>
+                            <field name="time_show"/>
+                            <field name="temp_show"/>
+                            <field name="pop"/>
+                            <field name="humidity"/>
+                            <field name="clouds"/>
+                            <field name="wind_speed"/>
+                            <field name="weather_description"/>
+                        </tree>
+                    </field>
 
-                              </tree>
-                          </field>
-                      </group>
-                  </sheet>
-              </form>
+                    <br/>
+                    <h3>Daily forecast</h3>
+                    <field name="daily_ids">
+                        <tree>
+                            <field name="time_show"/>
+                            <field name="temp_show"/>
+                            <field name="feels_like_day"/>
+                            <field name="temp_min"/>
+                            <field name="temp_max"/>
+                            <field name="pop"/>
+                            <field name="humidity"/>
+                            <field name="clouds"/>
+                            <field name="wind_speed"/>
+                            <field name="uvi"/>
+                            <field name="weather_description"/>
+
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
           </field>
       </record>
 
@@ -104,7 +111,7 @@
                               <h4><field name="weather_description"/></h4>
                               <br/>
 
-                              <b>Temp: <span style="color:red"><field name="temp"/></span></b> <br/>
+                              <b>Temp: <span style="color:red"><field name="temp_show"/></span></b> <br/>
                               <b>Humidity: <span style="color:blue"><field name="humidity"/></span></b> <br/>
                               <b>Clouds: <field name="clouds"/></b> <br/>
                               <b>Pop: <field name="pop"/></b> <br/>
@@ -128,7 +135,8 @@
           <field name="arch" type="xml">
               <graph>
                   <field name="name"/>
-                  <field name="temp_int" type="mesure" group="True" />
+                  <field name="temp_C" type="mesure" group="True" />
+                  <field name="temp_F" type="mesure" group="True" />
               </graph>
           </field>
       </record>
@@ -186,9 +194,9 @@
           <field name="code">action = model.display_temp_C()</field>
       </record>
 
-      <menuitem id="weather_unit" name="Units" parent="weather_menu_root"  />
-      <menuitem id="weather_unit_temp_C" name="Temp C" parent="weather_unit"  action="weather_temp_C_act_server"/>
-      <menuitem id="weather_unit_temp_F" name="Temp F" parent="weather_unit"  action="weather_temp_F_act_server"/>
+<!--      <menuitem id="weather_unit" name="Units" parent="weather_menu_root"  />-->
+      <menuitem id="weather_unit_temp_C" name="Temp C" parent="weather_menu_1"  action="weather_temp_C_act_server"/>
+      <menuitem id="weather_unit_temp_F" name="Temp F" parent="weather_menu_1"  action="weather_temp_F_act_server"/>
 
 
   </data>

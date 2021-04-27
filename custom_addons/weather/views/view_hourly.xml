@@ -10,7 +10,7 @@
                     </h2>
                     <group>
                         <group>
-                            <field name="temp"/>
+                            <field name="temp_show"/>
                             <field name="feels_like"/>
                             <field name="pop"/>
                             <field name="clouds"/>

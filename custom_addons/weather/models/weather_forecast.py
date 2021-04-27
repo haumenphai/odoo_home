@@ -1,15 +1,13 @@
 import json
+from dateutil import tz
 
 from odoo import models, fields, api
 
 from ..tools import time_util
 
-
 apikey1 = '3e65cba6de46a1e4074e68215ed5938a'
 apikey2 = 'dfc2d4e0b00c6903afcfdfcc3b059752'
 
-# TODO: Đã thêm 2 trường temp_int vàtemp_float, check lại khi chuyển đổi lại sang ngày mai và hiện tại
-# TODO: add search view.
 
 class WeatherForecast(models.Model):
     _name = 'weather.forecast'
@@ -20,21 +18,25 @@ class WeatherForecast(models.Model):
     lat = fields.Float(string='Latitude', required=True)
     lon = fields.Float(string='Longitude', required=True)
 
-    dt = fields.Datetime(string='Updated at')
-    visibility = fields.Char(string='Visibility')
-    sunrise_show = fields.Char(string='Sunrise')
-    sunset_show = fields.Char(string='Sunset')
-    timezone = fields.Char(string='Timezone')
-    hourly_ids = fields.Many2many('weather.hourly', string='Hourly Forecast')
-    daily_ids = fields.Many2many('weather.daily', string='Daily Forecast')
-    current_json = fields.Text(string='Current Json')
+    dt_show = fields.Char(string='Update at', readonly=True, compute='_compute_dt_show')
+    visibility = fields.Char(string='Visibility', readonly=True)
+    sunrise_show = fields.Char(string='Sunrise', readonly=True)
+    sunset_show = fields.Char(string='Sunset', readonly=True)
+    timezone = fields.Char(string='Timezone', readonly=True)
+    hourly_ids = fields.Many2many('weather.hourly', string='Hourly Forecast', readonly=True)
+    daily_ids = fields.Many2many('weather.daily', string='Daily Forecast', readonly=True)
+    current_json = fields.Text(string='Current Json', readonly=True)
 
-
-    @api.depends('weather_icon')
-    def _compute_url_icon(self):
+    @api.depends('dt')
+    def _compute_dt_show(self):
         for r in self:
-            r.url_icon = f'http://openweathermap.org/img/wn/{r.weather_icon}@2x.png'
-        print(time_util)
+            if r.timezone and r.dt:
+                to_zone = tz.gettz(r.timezone)
+                time = r.dt.astimezone(to_zone)
+                r.dt_show = time.strftime(f'%m/%d/%Y %H:%M:%S - Timezone: {r.timezone}')
+            else:
+                r.dt_show = 'null'
+
 
     @api.model
     def update_data_weather(self):
@@ -56,8 +58,6 @@ class WeatherForecast(models.Model):
             weather = data['current']['weather'][0]
             city.write({
                 'temp': current['temp'],
-                'temp_int': current['temp_int'],
-                'temp_float': current['temp_float'],
                 'feels_like': current['feels_like'],
                 'humidity': current['humidity'],
                 'pressure': current['pressure'],
@@ -88,11 +88,11 @@ class WeatherForecast(models.Model):
             for day in city.daily_ids:
                 day.update_data_daily(day_list[j], data['timezone'])
                 j += 1
-
-            # if i == 3: break  # todo: delete
         self._save_current_weather(cities)
-        self._set_act_window_label(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
-        return self._reload_page(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
+        self._set_act_window_label(
+            f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
+        return self._reload_page(
+            f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
 
     def _convert_data(self, data):
         """ Converts the value of the dict (data) to a displayable format
@@ -103,10 +103,7 @@ class WeatherForecast(models.Model):
 
         print('result: ', result)
         current = result['current']
-        current['temp_int'] = round(current['temp'])
-        current['temp_float'] = current['temp']
         current['dt'] = time_util.unix2datetime(current['dt'])
-        current['temp'] = f"{round(current['temp'])} ºC"
         current['feels_like'] = f"{round(current['feels_like'])} ºC"
         current['pressure'] = f"{round(current['pressure'])} hPa"
         current['humidity'] = f"{round(current['humidity'])} %"
@@ -145,13 +142,10 @@ class WeatherForecast(models.Model):
         """ Convert the weather data currently displayed in the tree view to tomorrow's weather
         """
         self = self.sudo(True)
-        i = 0  # todo: delete
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree'
         cities = self.search([])
-
         for city in cities:
-            i += 1  # todo delete
             data_tomorrow = city.daily_ids[1].get_data_one_day()
             city['temp'] = data_tomorrow['temp']
             city['humidity'] = data_tomorrow['humidity']
@@ -164,8 +158,7 @@ class WeatherForecast(models.Model):
             city['pressure'] = data_tomorrow['pressure']
             city['sunset_show'] = data_tomorrow['sunset_show']  # co the khong can thiet
             city['sunrise_show'] = data_tomorrow['sunrise_show']  # co the khong can thiet
-            # if i == 3: break  # todo delete
-        print('set to tomorrow')
+        print('set to tomorrow')  # todo delete
         self._set_act_window_label("Tomorrow's weather")
         return self._reload_page("Tomorrow's weather", "tree")
 
@@ -176,10 +169,7 @@ class WeatherForecast(models.Model):
         cities = self.search([])
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree,form,kanban'
-
-        i = 0  # todo delete
         for city in cities:
-            i += 1  # todo delete
             data = json.loads(city.current_json)
             city['temp'] = data['temp']
             city['humidity'] = data['humidity']
@@ -192,11 +182,11 @@ class WeatherForecast(models.Model):
             city['pressure'] = data['pressure']
             city['sunset_show'] = data['sunset_show']  # co the khong can thiet vì nó không hiển thị trên tree view
             city['sunrise_show'] = data['sunrise_show']  #
-
-            # if i == 3: break  # todo delete
-        print('set to Current weather')
-        self._set_act_window_label(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
-        return self._reload_page(f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
+        print('set to Current weather')  # todo delete
+        self._set_act_window_label(
+            f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
+        return self._reload_page(
+            f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
 
     def _reload_page(self, name, view_mode='tree,form,kanban,graph'):
         return {
@@ -217,23 +207,23 @@ class WeatherForecast(models.Model):
     def display_temp_C(self):
         print('display temp C')
         cities = self.search([])
-        for r in cities:
-            if r.temp:
-                if 'C' in str(r.temp): return
-                tempF = f'{r.temp}'
-                tempF = float(tempF[0:tempF.find(' ')])
-                tempC = f'{round((tempF - 32) / 1.8)} °C'
-                r.temp = tempC
+        for city in cities:
+            if city.temp:
+                city.set_temp_C()
+            for hour in city.hourly_ids:
+                hour.set_temp_C()
+            for day in city.daily_ids:
+                day.set_temp_C()
         return self._reload_page(self.env.ref('weather.weather_city_act').name + ' (Temp C)')
 
     def display_temp_F(self):
         print('display temp F')
         cities = self.search([])
-        for r in cities:
-            if r.temp:
-                if 'F' in str(r.temp): return
-                tempC = f'{r.temp}'
-                tempC = int(tempC[0:tempC.find(' ')])
-                tempF = f'{(tempC * 9 / 5 + 32)} °F'
-                r.temp = tempF
+        for city in cities:
+            if city.temp:
+                city.set_temp_F()
+            for hour in city.hourly_ids:
+                hour.set_temp_F()
+            for day in city.daily_ids:
+                day.set_temp_F()
         return self._reload_page(self.env.ref('weather.weather_city_act').name + ' (Temp F)')
