@@ -25,12 +25,18 @@ class Weather(models.AbstractModel):
     weather_description = fields.Char(string='Weather Description', readonly=True)
     weather_icon = fields.Char(string='Weather Icon Code', readonly=True)
 
+    pop_int = fields.Integer(string='Pop', readonly=True)
+    humidity_int = fields.Integer(string='Humidity', readonly=True)
+    clouds_int = fields.Integer(string='Clouds', readonly=True)
+    pressure_int = fields.Integer(string='Pressure', readonly=True)
+
+
 
     @api.depends('weather_icon')
     def _compute_url_icon(self):
         for r in self:
             r.url_icon = f'http://openweathermap.org/img/wn/{r.weather_icon}@2x.png'
-
+        print('compute url icon')
 
     @api.depends('temp')
     def _compute_temp(self):
@@ -41,9 +47,11 @@ class Weather(models.AbstractModel):
         print('compute temp')
 
     def set_temp_C(self):
+        self.ensure_one()
         self.temp_show = f'{self.temp_C} °C'
 
     def set_temp_F(self):
+        self.ensure_one()
         self.temp_show = f'{self.temp_F} °F'
 
 

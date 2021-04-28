@@ -44,7 +44,7 @@ class CustomLocation(models.Model):
         return {
             'name': 'Your location',
             'type': 'ir.actions.act_window',
-            'view_mode': 'tree,form',
+            'view_mode': 'tree,form,kanban,graph',
             'res_model': 'weather.customlocation',
             'target': 'current'
         }

@@ -21,9 +21,6 @@
         <field name="name">weather custom location form view</field>
         <field name="model">weather.customlocation</field>
         <field name="arch" type="xml">
-<!--             <xpath expr="//field[@name='weather_description']" position="before" >-->
-<!--                    <field name="user_id"/>-->
-<!--             </xpath>-->
             <form>
                 <sheet>
                     <div>
@@ -90,19 +87,100 @@
                             <field name="wind_speed"/>
                             <field name="uvi"/>
                             <field name="weather_description"/>
-
                         </tree>
                     </field>
                 </sheet>
             </form>
+
         </field>
     </record>
+
+
+    <record id="weather_kanban2" model="ir.ui.view">
+        <field name="name">weather kanban</field>
+        <field name="model">weather.customlocation</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <h3><field name="name"/></h3>
+                            <h4><field name="weather_description"/></h4>
+                            <br/>
+
+                            <b>Temp: <span style="color:red"><field name="temp_show"/></span></b> <br/>
+                            <b>Humidity: <span style="color:blue"><field name="humidity"/></span></b> <br/>
+                            <b>Clouds: <field name="clouds"/></b> <br/>
+                            <b>Pop: <field name="pop"/></b> <br/>
+                            <br/>
+
+                            <b>Visibility: <field name="visibility"/></b> <br/>
+                            <b>Wind speed: <field name="wind_speed"/></b> <br/>
+
+                            <field name="url_icon" invisible="1"/>
+                            <img t-att-src="record.url_icon.value" alt=""/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="weather_graph" model="ir.ui.view">
+        <field name="name">weather graph</field>
+        <field name="model">weather.forecast</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="name"/>
+                <field name="temp_C" type="measure" group="True"/>
+            </graph>
+        </field>
+    </record>
+
+     <record id="weather_custom_location_search_view" model="ir.ui.view">
+            <field name="name">weather custom location search view</field>
+            <field name="model">weather.customlocation</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="temp_show"/>
+                    <field name="pop"/>
+                    <field name="humidity"/>
+                    <field name="pressure"/>
+                    <field name="clouds"/>
+                    <field name="wind_speed"/>
+                    <field name="wind_deg"/>
+                    <field name="visibility"/>
+                    <field name="weather_description"/>
+
+                    <filter name="hot_locations" string="Hot locations" domain="[('temp_C', '>=', '30')]"/>
+                    <filter name="rain_locations" string="Locations is raining" domain="[('pop_int', '>=', '90')]"/>
+                    <filter name="clouds_locations" string="Cloudy Locations" domain="[('clouds_int', '>=', '90')]"/>
+
+                    <group string="Group By">
+                        <filter name="group_by_temp" string="Group by temp" context="{'group_by': 'temp_show'}"/>
+                        <filter name="group_by_pop" string="Group by pop" context="{'group_by': 'pop'}"/>
+                        <filter name="group_by_humidity" string="Group by humidity" context="{'group_by': 'humidity'}"/>
+                        <filter name="group_by_pressure" string="Group by pressure" context="{'group_by': 'pressure'}"/>
+                        <filter name="group_by_clouds" string="Group by clouds" context="{'group_by': 'clouds'}"/>
+                        <filter name="group_by_wind_speed" string="Group by Wind Speed"
+                                context="{'group_by': 'wind_speed'}"/>
+                        <filter name="group_by_wind_deg" string="Group by Wind Deg" context="{'group_by': 'wind_deg'}"/>
+                        <filter name="group_by_visibility" string="Group by visibility"
+                                context="{'group_by': 'visibility'}"/>
+                        <filter name="group_by_weather_description" string="Group by weather description"
+                                context="{'group_by': 'weather_description'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
 
 
     <record id="weather_custom_location_act_window" model="ir.actions.act_window">
         <field name="name">Your Location</field>
         <field name="res_model">weather.customlocation</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban,graph</field>
     </record>
 
     <menuitem id="menu_custom_lacation_root" name="Your Location"

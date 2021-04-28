@@ -27,7 +27,6 @@ class WeatherDaily(models.Model):
     feels_like_night = fields.Char(string='Feels Like Night', readonly=True)
     feels_like_eve = fields.Char(string='Feels Like Evening', readonly=True)
     feels_like_morning = fields.Char(string='Feels Like Morning', readonly=True)
-    uvi = fields.Char(string='Uvi', readonly=True)
 
     def get_data_one_day(self):
         return {
@@ -85,7 +84,11 @@ class WeatherDaily(models.Model):
             'sunrise_show': data['sunrise_show'],
             'sunset_show': data['sunset_show'],
             'moonrise_show': data['moonrise_show'],
-            'moonset_show': data['moonset_show']
+            'moonset_show': data['moonset_show'],
+            'pop_int': data['pop_int'],
+            'humidity_int': data['humidity_int'],
+            'clouds_int': data['clouds_int'],
+            'pressure_int': data['pressure_int']
         })
 
     def _convert_data(self, data_day, tz):
@@ -121,4 +124,9 @@ class WeatherDaily(models.Model):
         r['wind_deg'] = f"{r['wind_deg']} º"
         r['clouds'] = f"{round(r['clouds'])} %"
         r['pop'] = f"{int(r['pop'] * 100)} %"
+
+        r['pop_int'] = int(r['pop'][0:len(r['pop']) - 2])
+        r['humidity_int'] = int(r['humidity'][0:len(r['humidity']) - 2])
+        r['clouds_int'] = round(data_day['clouds'])
+        r['pressure_int'] = round(data_day['pressure'])
         return r

@@ -73,6 +73,10 @@ class WeatherForecast(models.Model):
                 'timezone': data['timezone'],
                 'sunset_show': data['sunset_show'],
                 'sunrise_show': data['sunrise_show'],
+                'pop_int': data['pop_int'],
+                'humidity_int': data['humidity_int'],
+                'clouds_int': data['clouds_int'],
+                'pressure_int': data['pressure_int']
             })
 
             j = 0
@@ -100,6 +104,9 @@ class WeatherForecast(models.Model):
             :return dict: (result) contains the converted values
         """
         result = data.copy()
+        result['humidity_int'] = round(data['current']['humidity'])
+        result['clouds_int'] = round(data['current']['clouds'])
+        result['pressure_int'] = round(data['current']['pressure'])
 
         print('result: ', result)
         current = result['current']
@@ -116,10 +123,11 @@ class WeatherForecast(models.Model):
         sunset = time_util.unix2datetime(current['sunset'])
         result['sunset_show'] = time_util.convert_datetime(sunrise, data['timezone']).strftime('%H:%M')
         result['sunrise_show'] = time_util.convert_datetime(sunset, data['timezone']).strftime('%H:%M')
+        result['pop_int'] = int(result['pop'][0:len(result['pop'])-2])
         return result
 
     def _save_current_weather(self, cities):
-        """ Save current weather data so you can go back to current weather information when switching to tomorrow
+        """ Save current weather data so you can go back to current weather information when switching to tomorrow on tree view
             :param cities: all record of weather.forecast
         """
         for city in cities:

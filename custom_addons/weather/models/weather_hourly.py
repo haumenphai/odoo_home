@@ -33,6 +33,10 @@ class WeatherHourly(models.Model):
         result['wind_deg'] = f"{round(result['wind_deg'])} º"
         result['pop'] = f"{round(result['pop'] * 100)} %"
         result['uvi'] = f"{result['uvi']}"
+        result['pop_int'] = int(result['pop'][0:len(result['pop']) - 2])
+        result['humidity_int'] = int(result['humidity'][0:len(result['humidity']) - 2])
+        result['clouds_int'] = round(data['clouds'])
+        result['pressure_int'] = round(data['pressure'])
         return result
 
     def update_hourly(self, data, timezone):
@@ -52,5 +56,9 @@ class WeatherHourly(models.Model):
             'weather_icon': data1['weather'][0]['icon'],
             'timezone': timezone,
             'pressure': data1['pressure'],
-            'uvi': data1['uvi']
+            'uvi': data1['uvi'],
+            'pop_int': data1['pop_int'],
+            'humidity_int': data1['humidity_int'],
+            'clouds_int': data1['clouds_int'],
+            'pressure_int': data1['pressure_int']
         })
