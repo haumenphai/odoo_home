@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record id="xem_boi_list" model="ir.ui.view">
+            <field name="name">xem boi list</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree//field[@name='email']" position="after" >
+                    <field name="birthday"/>
+                    <field name="age"/>
+                    <field name="manager_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="xem_boi_form" model="ir.ui.view">
+            <field name="name">xem boi form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="birthday"/>
+                    <field name="date_of_birth"/>
+                    <field name="time_of_birth"/>
+                    <field name="age"/>
+                    <field name="manager_id"/>
+                    <field name="business" />
+                    <field name="business_type" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="xemboi_act_window">
+            <field name="name">xemboi window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Xem Boi" id="xemboi_menu_root" action="xemboi_act_window"/>
+
+    </data>
+</odoo>

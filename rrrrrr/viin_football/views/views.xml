@@ -1,0 +1,77 @@
+<odoo>
+    <record id="viin_football_player_list" model="ir.ui.view">
+        <field name="name">Player List</field>
+        <field name="model">football.player</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="player_position_ids" widget="many2many_tags"/>
+                <field name="general" widget="progressbar"/>
+                <field name="rate" widget="priority"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="viin_football_player_form" model="ir.ui.view">
+        <field name="name">Player Form</field>
+        <field name="model">football.player</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="avatar" widget="image"/>
+                            <field name="name"/>
+                            <field name="birthday"/>
+                            <field name="age"/>
+                            <field name="phone_number" widget="phone"/>
+                            <field name="email" widget="email"/>
+                            <field name="player_position_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="index_finish"/>
+                            <field name="speed"/>
+                            <field name="cam"/>
+                            <field name="power"/>
+                            <field name="defense"/>
+                            <field name="general" widget="progressbar"/>
+                            <field name="rate" widget="priority"/>
+                        </group>
+
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="graph_football" model="ir.ui.view">
+        <field name="name">Grap Player</field>
+        <field name="model">football.player</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="name"/>
+                <field name="general" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <record id="viin_football_player_action_window" model="ir.actions.act_window">
+        <field name="name">Player Window</field>
+        <field name="res_model">football.player</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+
+    <menuitem id="viin_football_menu_root" name="Viin Football" action="viin_football_player_action_window"/>
+
+
+
+</odoo>

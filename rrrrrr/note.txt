@@ -1,0 +1,2 @@
+--addons-path
+/home/do/my_odoo/odoo_home/addons, /home/do/my_odoo/odoo_home/bt_addons

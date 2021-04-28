@@ -1,0 +1,20 @@
+<odoo>
+    <record id="group_warlock" model="res.groups">
+        <field name="name">Thầy Phong Thủy</field>
+    </record>
+
+    <record id="thay_phong_thuy_rule" model="ir.rule">
+         <field name="name">Only Manager can edit and delete</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="groups" eval="[(4, ref('xem_boi.group_warlock'))]"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">
+                ['|', ('manager_id', '=', False), ('manager_id','=','user.id') ]
+            </field>
+
+    </record>
+
+</odoo>

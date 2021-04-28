@@ -1,0 +1,13 @@
+<odoo>
+    <record id="viin_football_positon_action_window" model="ir.actions.act_window">
+        <field name="name">Position Window</field>
+        <field name="res_model">football.playerposition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="viin_football_menu_positions"
+              name="Position"
+              parent="viin_football_menu_root"
+              action="viin_football_positon_action_window"
+    />
+</odoo>
