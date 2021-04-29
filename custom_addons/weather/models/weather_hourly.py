@@ -62,3 +62,8 @@ class WeatherHourly(models.Model):
             'clouds_int': data1['clouds_int'],
             'pressure_int': data1['pressure_int']
         })
+
+        vals_list = [
+            {'name': 'Petter', 'age': 20},
+            {'name': 'Been', 'age': 10}
+        ]
