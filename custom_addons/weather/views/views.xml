@@ -106,7 +106,7 @@
                 <kanban>
                     <templates>
                         <t t-name="kanban-box">
-                            <div>
+                            <div class="oe_kanban_global_click">
                                 <h3><field name="name"/></h3>
                                 <h4><field name="weather_description"/></h4>
                                 <br/>
@@ -214,11 +214,11 @@
 
         <menuitem id="weather_menu_1" name="All Location" parent="weather_menu_root" action="weather_city_act"/>
         <menuitem id="weather_tomorrow_id" name="Tomorrow's Weather" parent="weather_menu_1"
-                  action="weather_tomorrow_act_server"/>
+                  action="weather_tomorrow_act_server" groups="weather.group_weather_admin"/>
         <menuitem id="weather_current_id" name="Current Weather" parent="weather_menu_1"
-                  action="weather_current_act_server"/>
+                  action="weather_current_act_server" groups="weather.group_weather_admin"/>
         <menuitem id="weather_update_id" name="Update Weather" parent="weather_menu_1"
-                  action="weather_update_act_server"/>
+                  action="weather_update_act_server" groups="weather.group_weather_admin"/>
 
 
         <record id="weather_temp_F_act_server" model="ir.actions.server">
@@ -234,9 +234,10 @@
             <field name="code">action = model.display_temp_C()</field>
         </record>
 
-        <!--      <menuitem id="weather_unit" name="Units" parent="weather_menu_root"  />-->
-        <menuitem id="weather_unit_temp_C" name="Temp C" parent="weather_menu_1" action="weather_temp_C_act_server"/>
-        <menuitem id="weather_unit_temp_F" name="Temp F" parent="weather_menu_1" action="weather_temp_F_act_server"/>
+        <menuitem id="weather_unit_temp_C" name="Temp C" parent="weather_menu_1" action="weather_temp_C_act_server"
+                  groups="weather.group_weather_admin"/>
+        <menuitem id="weather_unit_temp_F" name="Temp F" parent="weather_menu_1" action="weather_temp_F_act_server"
+                  groups="weather.group_weather_admin"/>
 
 
     </data>

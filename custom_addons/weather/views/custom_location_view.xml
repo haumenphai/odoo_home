@@ -103,7 +103,7 @@
             <kanban>
                 <templates>
                     <t t-name="kanban-box">
-                        <div>
+                        <div class="oe_kanban_global_click">
                             <h3><field name="name"/></h3>
                             <h4><field name="weather_description"/></h4>
                             <br/>

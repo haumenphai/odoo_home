@@ -241,21 +241,6 @@
     </record>
 
 
-    <record id="city12" model="weather.forecast">
-        <field name="name">Bình Thuận</field>
-        <field name="lat">11.146585</field>
-        <field name="lon">108.140489</field>
-        <field name="hourly_ids" eval="[(6, 0, [
-               ref('weather.city15_1'), ref('weather.city15_2'),
-               ref('weather.city15_3'), ref('weather.city15_4'),
-               ref('weather.city15_5'), ref('weather.city15_6')
-        ])]"/>
-        <field name="daily_ids" eval="[(6, 0, [
-               ref('weather.city15_1_d'), ref('weather.city15_2_d'),
-               ref('weather.city15_3_d'), ref('weather.city15_4_d'),
-               ref('weather.city15_5_d'), ref('weather.city15_6_d')
-        ])]"/>
-    </record>
 
 
     <record id="city13" model="weather.forecast">

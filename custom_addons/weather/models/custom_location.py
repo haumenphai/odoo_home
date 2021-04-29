@@ -11,6 +11,7 @@ class CustomLocation(models.Model):
 
     @api.model
     def create(self, vals_list):
+        self = self.sudo(True)
         rec = super(CustomLocation, self).create(vals_list)
         rec.write({
             'hourly_ids': [
@@ -40,6 +41,7 @@ class CustomLocation(models.Model):
         return rec
 
     def update_data_weather(self):
+        print(self.search([]))
         super(CustomLocation, self).update_data_weather()
         return {
             'name': 'Your location',

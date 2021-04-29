@@ -37,13 +37,10 @@ class WeatherForecast(models.Model):
             else:
                 r.dt_show = 'null'
 
-
     @api.model
     def update_data_weather(self):
-        """ Update weather for all location
-            :return: None
+        """ Update weather for all location in self.
         """
-        self = self.sudo(True)
         i = 0
         cities = self.search([])
         for city in cities:
@@ -85,12 +82,12 @@ class WeatherForecast(models.Model):
 
             # length hourly_ids = 6.
             for hour in city.hourly_ids:
-                hour.update_hourly(hour_list[j], data['timezone'])
+                hour.sudo(True).update_hourly(hour_list[j], data['timezone'])
                 j += 1
 
             j = 0
             for day in city.daily_ids:
-                day.update_data_daily(day_list[j], data['timezone'])
+                day.sudo(True).update_data_daily(day_list[j], data['timezone'])
                 j += 1
         self._save_current_weather(cities)
         self._set_act_window_label(
@@ -123,7 +120,7 @@ class WeatherForecast(models.Model):
         sunset = time_util.unix2datetime(current['sunset'])
         result['sunset_show'] = time_util.convert_datetime(sunrise, data['timezone']).strftime('%H:%M')
         result['sunrise_show'] = time_util.convert_datetime(sunset, data['timezone']).strftime('%H:%M')
-        result['pop_int'] = int(result['pop'][0:len(result['pop'])-2])
+        result['pop_int'] = int(result['pop'][0:len(result['pop']) - 2])
         return result
 
     def _save_current_weather(self, cities):
@@ -149,7 +146,6 @@ class WeatherForecast(models.Model):
     def set_forecast_to_tomorrow(self):
         """ Convert the weather data currently displayed in the tree view to tomorrow's weather
         """
-        self = self.sudo(True)
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree'
         cities = self.search([])
@@ -166,14 +162,12 @@ class WeatherForecast(models.Model):
             city['pressure'] = data_tomorrow['pressure']
             city['sunset_show'] = data_tomorrow['sunset_show']  # co the khong can thiet
             city['sunrise_show'] = data_tomorrow['sunrise_show']  # co the khong can thiet
-        print('set to tomorrow')  # todo delete
         self._set_act_window_label("Tomorrow's weather")
         return self._reload_page("Tomorrow's weather", "tree")
 
     def set_forecast_to_current(self):
         """ Convert the time data currently displayed in the tree view to the current weather
         """
-        self = self.sudo(True)
         cities = self.search([])
         act_window = self.env.ref('weather.weather_city_act')
         act_window.view_mode = 'tree,form,kanban'
@@ -190,7 +184,6 @@ class WeatherForecast(models.Model):
             city['pressure'] = data['pressure']
             city['sunset_show'] = data['sunset_show']  # co the khong can thiet vì nó không hiển thị trên tree view
             city['sunrise_show'] = data['sunrise_show']  #
-        print('set to Current weather')  # todo delete
         self._set_act_window_label(
             f"Current weather updated at: {time_util.convert_datetime(cities[0].dt, cities[0].timezone).strftime('%H:%M')}")
         return self._reload_page(
@@ -213,7 +206,6 @@ class WeatherForecast(models.Model):
         act_window.name = label
 
     def display_temp_C(self):
-        print('display temp C')
         cities = self.search([])
         for city in cities:
             if city.temp:
@@ -225,7 +217,6 @@ class WeatherForecast(models.Model):
         return self._reload_page(self.env.ref('weather.weather_city_act').name + ' (Temp C)')
 
     def display_temp_F(self):
-        print('display temp F')
         cities = self.search([])
         for city in cities:
             if city.temp:
