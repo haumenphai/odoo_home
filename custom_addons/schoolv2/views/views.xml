@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="school_v2.list">
+      <field name="name">school_v2 list</field>
+      <field name="model">school_v2.school_v2</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+    <record id="schoolv2_action_window" model="ir.actions.act_window" >
+      <field name="name">school_v2 window</field>
+      <field name="res_model">schoolv2.student</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Top menu item -->
+    <menuitem name="schoolv2" id="schoolv2_menu_root" action="schoolv2_action_window"/>
+  </data>
+</odoo>
