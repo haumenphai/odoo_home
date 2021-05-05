@@ -23,15 +23,19 @@ class to_vietnamese_number2words():
         in_word = ''
         split_mod = ''
         split_remain = ''
+
+        if precision_digits:
+            amount = float_round(amount, precision_digits=precision_digits, rounding_method=rounding_method)
+        elif precision_rounding:
+            amount = float_round(amount, precision_rounding=precision_rounding, rounding_method=rounding_method)
         num = int(amount)
         decimal = amount - num
-        if precision_digits:
-            decimal = float_round(decimal, precision_digits=precision_digits, rounding_method=rounding_method)
-        elif precision_rounding:
-            decimal = float_round(decimal, precision_rounding=precision_rounding, rounding_method=rounding_method)
+        # decimal = float_round(decimal, precision_rounding=precision_rounding, rounding_method=rounding_method)
+        print('amount:', amount, '\nnum: ', num, '\ndecimal: ', decimal)
 
         gnum = str(num)
         gdecimal = str(decimal)[2:]
+        print(gdecimal)
         m = len(gnum) // 3
         mod = len(gnum) - m * 3
 
@@ -72,15 +76,15 @@ class to_vietnamese_number2words():
         if len(in_word) > 0:
             in_word = str(in_word.strip()[:1]).upper() + in_word.strip()[1:]
 
-        if decimal > 0:
+        if gdecimal:
             in_word += ' phẩy'
             for i in range(0, len(gdecimal)):
                 in_word += ' ' + self._word(gdecimal[i])
 
         if prefix_word:
             in_word = prefix_word + in_word[:1].lower() + in_word[1:]
-        if num == 0:
-            in_word = 'Không ' + in_word
+        # if num == 0:
+        #     in_word = 'Không ' + in_word
 
         res = in_word.replace('  ', ' ')
         return res
@@ -202,5 +206,5 @@ class to_vietnamese_number2words():
 
 
 s = to_vietnamese_number2words()
-kq = s.num2words(0.85, precision_rounding=0.01)
+kq = s.num2words(0.353, precision_rounding=0.01)
 print(kq)

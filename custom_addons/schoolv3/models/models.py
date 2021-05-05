@@ -9,4 +9,7 @@ class Student(models.Model):
 
     name = fields.Char(string='Name')
 
+    def unlink(self):
+        s = self.env['to.vietnamese.number2words']
+        print(s.num2words(2))
 

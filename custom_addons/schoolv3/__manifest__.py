@@ -77,7 +77,7 @@ Tính năng chính
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'to_vietnamese_number2words'],
 
     # always loaded
     'data': [
