@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from odoo import models
 from odoo.tools import float_round
 
 
 class to_vietnamese_number2words():
+    _name = 'to.vietnamese.number2words'
 
     def num2words(self, amount, precision_digits=None, precision_rounding=None, rounding_method='HALF-UP'):
         """Method to convert number to words in Vietnamese.
@@ -70,13 +73,14 @@ class to_vietnamese_number2words():
             in_word = str(in_word.strip()[:1]).upper() + in_word.strip()[1:]
 
         if decimal > 0:
-            in_word += ' phẩy '
-            str_decimal = self.num2words(self._int_decimal(decimal))
-            str_decimal = str_decimal[:1].lower() + str_decimal[1:]
-            in_word += str_decimal
+            in_word += ' phẩy'
+            for i in range(0, len(gdecimal)):
+                in_word += ' ' + self._word(gdecimal[i])
 
         if prefix_word:
             in_word = prefix_word + in_word[:1].lower() + in_word[1:]
+        if num == 0:
+            in_word = 'Không ' + in_word
 
         res = in_word.replace('  ', ' ')
         return res
@@ -196,15 +200,7 @@ class to_vietnamese_number2words():
 
         return res
 
-    def _int_decimal(self, amout):
-        str_amount = str(amout)
-        str_demcimal = str_amount[str_amount.index('.') + 1::]
-        decimal = int(str_demcimal)
-        return decimal
-
 
 s = to_vietnamese_number2words()
-kq = s.num2words(0.1985, precision_rounding=0.0001)
+kq = s.num2words(0.85, precision_rounding=0.01)
 print(kq)
-# print(isinstance(1.5, int))
-# print(s.get_int_decimal(0.123))
