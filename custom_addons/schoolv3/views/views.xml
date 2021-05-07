@@ -10,13 +10,21 @@
     </record>
 
     <record id="schoolv3.form" model="ir.ui.view">
-        <field name="name">schoolv3 student list</field>
+        <field name="name">schoolv3 student from</field>
         <field name="model">schoolv3.student</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="level1,level2,level3,level 4"
+                        attrs="{'invisible': [('state_visibility', '=', False)]}"
+                           options="{'clickable': '1'}"
+                    />
+                </header>
                 <sheet>
                     <group>
-                        <field name="name"/>
+                        <field name="name" readonly="1"/>
+                        <field name="state_visibility"/>
+                        <field name="fields_level1"/>
                     </group>
                 </sheet>
             </form>
