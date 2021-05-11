@@ -19,10 +19,15 @@
                         attrs="{'invisible': [('state_visibility', '=', False)]}"
                            options="{'clickable': '1'}"
                     />
+                    <button name="test_copy" string="test_copy" type="object"  />
+                    <button name="test_default_get" string="test default get" type="object"  />
+
                 </header>
                 <sheet>
                     <group>
                         <field name="name" readonly="1"/>
+                        <field name="age"/>
+                        <field name="address"/>
                         <field name="state_visibility"/>
                         <field name="fields_level1"/>
                     </group>

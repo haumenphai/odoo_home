@@ -8,6 +8,9 @@ class Student(models.Model):
     _description = 'schoolv3.student'
 
     name = fields.Char(string='Name')
+    age = fields.Integer(string='Age', default=20)
+    address = fields.Char(string='Address', default='default address')
+
     state_visibility = fields.Boolean(string='State Visibility')
     state = fields.Selection(selection=[
         ('level1', 'Level 1'),
@@ -24,12 +27,11 @@ class Student(models.Model):
                                 }
     )
 
-    def print_name(self):
-        print(self.name)
+    def test_copy(self):
+        # single, return new record.
+        r = self.copy({'age': self.age + 1})
 
-
-    def unlink(self):
-        s = self.env['to.vietnamese.number2words']
-        print(s.num2words(2))
-        cre = self.mapped('create_uid')
-        cre.print_name()
+    def test_default_get(self):
+        l = self.search([])
+        r = l.default_get(['age', 'address'])
+        print(f'result: {r}')
