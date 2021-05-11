@@ -24,8 +24,12 @@ class Student(models.Model):
                                 }
     )
 
+    def print_name(self):
+        print(self.name)
+
 
     def unlink(self):
         s = self.env['to.vietnamese.number2words']
         print(s.num2words(2))
-
+        cre = self.mapped('create_uid')
+        cre.print_name()
