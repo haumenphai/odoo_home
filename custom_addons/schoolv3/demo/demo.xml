@@ -1,9 +1,0 @@
-<odoo>
-    <record id="schoolv3_student1" model="schoolv3.student">
-        <field name="name">Student 1</field>
-    </record>
-    <record id="schoolv3_student2" model="schoolv3.student">
-        <field name="name">Student 2</field>
-    </record>
-
-</odoo>
