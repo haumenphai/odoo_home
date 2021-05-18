@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "weather",
+    'name': "schoolv3",
     'name_vi_VN': "",
 
     'summary': """
-Weather Forecast""",
+Short (1 phrase/line) summary of the module's purpose, used as
+subtitle on modules listing or apps.openerp.com""",
 
     'summary_vi_VN': """
-App dự báo thời tiết
+Mô tả ngắn gọn bằng tiếng Việt (1 câu, 1 dòng) về mục đích của module
     	""",
 
     'description': """
@@ -76,29 +77,24 @@ Tính năng chính
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'to_vietnamese_number2words'],
 
     # always loaded
     'data': [
-        'security/security.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
-        'datas/data_daily.xml',
-        'datas/data_hourly.xml',
         'views/templates.xml',
-        'datas/data_city_vietnam.xml',
-        'datas/cron_update_weather.xml',
-        'views/custom_location_view.xml',
-        'views/view_hourly.xml'
+        'datas/data_student.xml'
     ],
-    'qweb': [
-        # 'static/src/xml/btn_test_123.xml',
+    # only loaded in demonstration mode
+    'demo': [
+        'demo/demo.xml',
     ],
-    'images': [
-        # 'static/description/main_screenshot.png'
-    ],
+    'images' : [
+    	# 'static/description/main_screenshot.png'
+    	],
     'installable': True,
-    'application': True,
+    'application': False,
     'auto_install': False,
     'price': 99.9,
     'currency': 'EUR',

@@ -1,0 +1,66 @@
+<odoo>
+    <record id="schoolv3.list" model="ir.ui.view">
+        <field name="name">schoolv3 student list</field>
+        <field name="model">schoolv3.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="schoolv3.form" model="ir.ui.view">
+        <field name="name">schoolv3 student from</field>
+        <field name="model">schoolv3.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="level1,level2,level3,level 4"
+                           attrs="{'invisible': [('state_visibility', '=', False)]}"
+                           options="{'clickable': '1'}"
+                    />
+                    <button name="test_copy" string="test_copy" type="object"/>
+                    <button name="test_default_get" string="test default get" type="object"/>
+                    <button name="test_search" string="Test Search" type="object"/>
+                    <button name="test_search_count" string="Search Count" type="object"/>
+                    <button name="test_name_search" string="Name Search" type="object"/>
+                    <button name="test_read" string="read()" type="object"/>
+                    <button name="test_read_group" string="read-group()" type="object"/>
+
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="age"/>
+                        <field name="address"/>
+                        <field name="state_visibility"/>
+                        <field name="fields_level1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="schoolv3_search_view" model="ir.ui.view">
+        <field name="name">Search view</field>
+        <field name="model">schoolv3.student</field>
+        <field name="arch" type="xml">
+            <search>
+                <group string="Group By">
+                    <filter name="group_by_age" string="Group by age"
+                            context="{'group_by': 'age'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="schoolv3_student_act_window" model="ir.actions.act_window">
+        <field name="name">Student</field>
+        <field name="res_model">schoolv3.student</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="schoolv3_menu_root" name="schoolv3" action="schoolv3_student_act_window"/>
+
+</odoo>
