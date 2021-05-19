@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_viin_exam_12_viin_exam_12,viin_exam_12.viin_exam_12,model_viin_exam_12_viin_exam_12,base.group_user,1,1,1,1
