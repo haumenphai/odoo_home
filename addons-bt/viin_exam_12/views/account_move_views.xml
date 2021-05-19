@@ -5,8 +5,17 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='button_draft']" position="after">
-                <button name="merge" string="Merge" type="object" />
+                <button name="merge" string="Merge" type="object"/>
             </xpath>
+            <xpath expr="//page[@id='other_tab_entry']" position="after">
+                <page id="other_tab_entry" string="Merge Product" name="other_info">
+                    <group>
+                        <field name="merge_invoice_line_ids"/>
+                    </group>
+
+                </page>
+            </xpath>
+
         </field>
     </record>
 </odoo>
