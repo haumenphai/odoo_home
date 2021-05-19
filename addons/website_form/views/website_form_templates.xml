@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="offset-lg-3 offset-md-4 col-md-8 col-lg-7">
-                        <a href="#" class="btn btn-primary btn-lg o_website_form_send">Send</a>
+                        <a href="#" class="btn btn-primary btn-lg o_website_form_send">Sen1d</a>
                         <span id="o_website_form_result"></span>
                     </div>
                 </div>
