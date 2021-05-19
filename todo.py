@@ -16,7 +16,7 @@ to_postgresql_server
 -u
 to_server
 """
-#-------------------------------------------------------------
+# -------------------------------------------------------------
 """
 -u
 to_server_shh
@@ -29,3 +29,11 @@ to_postgresql_server
 -u
 to_server
 """
+a = [1, 2, 3, 1, 2, 5, 5, 9, 1]
+b = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+for i in range(0, len(a)):
+    for j in range(i+1, len(a)):
+        if a[i] == a[j]:
+            b[i] += 1
+
+print(b)

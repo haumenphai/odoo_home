@@ -1,0 +1,12 @@
+<odoo>
+    <record id="account_move_form" model="ir.ui.view">
+        <field name="name">account.move.form.view</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_draft']" position="after">
+                <button name="merge" string="Merge" type="object" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
