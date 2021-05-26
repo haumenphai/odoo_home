@@ -1,0 +1,28 @@
+<odoo>
+     <record id="test1_form" model="ir.ui.view">
+        <field name="name">ss</field>
+        <field name="model">test1.test1</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="test" string="test" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="age"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <record id="tsss12" model="ir.actions.act_window">
+        <field name="name">Test</field>
+        <field name="res_model">test1.test1</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="test11" name="Test1" action="tsss12" parent="schoolv3.schoolv3_menu_root"/>
+
+</odoo>

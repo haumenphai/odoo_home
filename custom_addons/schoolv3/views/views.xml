@@ -29,11 +29,12 @@
                     <button name="gen30" string="gen30" type="object"/>
                     <button name="search2" string="search2" type="object"/>
                     <button name="test_cc" string="test cc" type="object"/>
+                    <button name="test_domain" string="test domain" type="object"/>
 
                 </header>
                 <sheet>
                     <group>
-                        <field name="name" readonly="1"/>
+                        <field name="name" />
                         <field name="age"/>
                         <field name="address"/>
                         <field name="state_visibility"/>

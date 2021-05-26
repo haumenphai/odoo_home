@@ -84,6 +84,7 @@ Tính năng chính
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/viewtest1.xml',
         'datas/data_student.xml'
     ],
     # only loaded in demonstration mode

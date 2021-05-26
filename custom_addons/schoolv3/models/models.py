@@ -268,4 +268,23 @@ class Student(models.Model):
         self.ensure_one()
         self.filtered()
 
+    def test_domain(self):
+        print(self.search([('name', 'like', 'Student')]))
+        print(self.search([('name', 'ilike', 'StUDent')]))
+        s = self.search([('name', 'not ilike', 'StUDent')])
+        print(s)
+        print(s.mapped('name'))
+        print(self.search([('name', '=ilike', 'StuDent%')]))
+        print(self.search([('name', '=like', 'StuDent%')]))
+
+        print(self.search([('name', 'in', ['Student 1', 'Student 2'])]))
+        print(self.search([('name', 'in', ('Student 1', 'Student 2'))]))
+
+class Tes1t1(models.Model):
+    _name = 'test1.test1'
+
+    age = fields.Integer()
+
+    def test(self):
+        print(self.name_get())
 
