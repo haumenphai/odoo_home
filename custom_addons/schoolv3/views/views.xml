@@ -26,6 +26,9 @@
                     <button name="test_name_search" string="Name Search" type="object"/>
                     <button name="test_read" string="read()" type="object"/>
                     <button name="test_read_group" string="read-group()" type="object"/>
+                    <button name="gen30" string="gen30" type="object"/>
+                    <button name="search2" string="search2" type="object"/>
+                    <button name="test_cc" string="test cc" type="object"/>
 
                 </header>
                 <sheet>
